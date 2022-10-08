@@ -29,8 +29,8 @@ body {
 .leftBar {
     background-color: rgb(38, 119, 81);
     min-height: 100vh;
-    min-width: 190px;
-    width: 25%;
+    min-width: fit-content;
+    width: fit-content;
     max-width: 250px;
     padding: 2%;
 }
@@ -45,6 +45,7 @@ body {
 
 #userIcon {
     height: 2.25vh;
+    min-height: 18px;
 }
 
 .userName {
@@ -98,6 +99,7 @@ body {
     border-width: 8px;
     border-radius: 10px;
     width: 15vw;
+    min-height: 100px;
     height: 15vh;
     font-size: 1vw;
     text-align: left;

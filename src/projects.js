@@ -20,17 +20,16 @@ export default function projects(projectList) {
     myProjects.textContent = 'My Projects';
     projectDiv.appendChild(myProjects);
 
-    for (let i = 0; i < projectList.length; i++) {
+    for (let i = 0; i < projectList.length; i++) { // Iterating to display our objects
 
         const projectTitle = document.createElement('span');
-        projectTitle.className = 'projectTitle'
-        projectTitle.textContent = projectList[i].title
-
+        projectTitle.className = 'projectTitle';
+        projectTitle.textContent = projectList[i].title;
         projectDiv.appendChild(projectTitle);
 
         const box = document.createElement('box');
         box.className = 'projectBox';
-        box.id = projectList[i].title
+        box.id = projectList[i].title;
 
         const boxTitle = document.createElement('span');
         boxTitle.textContent = "Title: " + projectList[i].title;
@@ -49,6 +48,7 @@ export default function projects(projectList) {
         for (let i = 0; i < boxContent.length; i++) {
             box.appendChild(boxContent[i]);
         }
-        todoSection.appendChild(box)
+
+        todoSection.appendChild(box);
     }
 }
