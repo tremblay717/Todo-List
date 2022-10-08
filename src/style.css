@@ -9,15 +9,16 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 7vh;
+    height: 4vh;
     background-color: rgb(38, 119, 81);
     padding: 2%;
+    justify-content: space-between;
 }
 
 .hero {
     font-family: 'Roboto', sans-serif;
     color: white;
-    font-size: 3.5vw;
+    font-size: 2.5vw;
 }
 
 #mainSection {
@@ -34,6 +35,24 @@ body {
     padding: 2%;
 }
 
+.righHeaderDiv {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap: 10px
+}
+
+
+#userIcon {
+    height: 2.25vh;
+}
+
+.userName {
+    font-family: 'Roboto', sans-serif;
+    color: black;
+    font-size: 1.25vw;
+}
+
 .projectDiv {
     display: flex;
     flex-direction: column;
@@ -42,15 +61,47 @@ body {
 
 .myProjects {
     font-family: 'Roboto', sans-serif;
-    font-size: 1.5vw;
+    font-size: 1.35vw;
     color: white;
     font-weight: 600;
 }
 
 .projectTitle {
     font-family: 'Roboto', sans-serif;
-    font-size: 1.45vw;
+    font-size: 1.25vw;
     color: white;
     cursor: pointer;
-    text-decoration-line:underline;
+    text-decoration-line: underline;
+}
+
+#todoSection {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 2%;
+    width: 100%;
+    height: min-content;
+    gap: 30px;
+    justify-content: center;
+}
+
+.projectBox {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: rgba(224, 231, 223, 0.623);
+    border-radius: 0px;
+    align-self: start;
+    text-align: center;
+    padding: 1%;
+    border-left: solid rgb(38, 119, 81);
+    border-width: 8px;
+    border-radius: 10px;
+    width: 15vw;
+    height: 15vh;
+    font-size: 1vw;
+    text-align: left;
+    box-shadow: 0px 15px 10px -15px #111;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 570;
 }
