@@ -10,7 +10,7 @@ body {
     flex-direction: row;
     align-items: center;
     height: 7vh;
-    background-color: #0284c7;
+    background-color: rgb(38, 119, 81);
     padding: 2%;
 }
 
@@ -20,18 +20,37 @@ body {
     font-size: 3.5vw;
 }
 
-
 #mainSection {
     display: flex;
     flex-direction: row;
 }
 
-
 .leftBar {
-    background-color: #aed3e6;
+    background-color: rgb(38, 119, 81);
     min-height: 100vh;
     min-width: 190px;
     width: 25%;
     max-width: 250px;
     padding: 2%;
+}
+
+.projectDiv {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.myProjects {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5vw;
+    color: white;
+    font-weight: 600;
+}
+
+.projectTitle {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.45vw;
+    color: white;
+    cursor: pointer;
+    text-decoration-line:underline;
 }
