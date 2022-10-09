@@ -57,10 +57,24 @@ body {
     font-size: 1rem;
 }
 
+
+
 .projectDiv {
     display: flex;
     flex-direction: column;
     gap: 15px;
+}
+
+.newProject {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    color: white;
+    font-weight: 600;
+    text-decoration-line: underline;
+    cursor: pointer;
+}
+.newProject:hover {
+    color:orange !important;
 }
 
 .myProjects {
@@ -74,10 +88,6 @@ body {
     font-family: 'Roboto', sans-serif;
     font-size: 0.95rem;
     color: white;
-    cursor: pointer;
-    text-decoration-line: underline;
-
-
 }
 
 #todoSection {
@@ -118,7 +128,7 @@ body {
 
 }
 
-#editingDiv {
+#editingDiv, #newProjectDiv {
     display: flex;
     flex-direction: column;
     align-self: flex-start;
@@ -138,7 +148,7 @@ body {
 
 }
 
-#editingForm {
+#editingForm, #newForm {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -146,7 +156,7 @@ body {
 
 .buttonDiv {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     gap: 5px;
     justify-content: center;

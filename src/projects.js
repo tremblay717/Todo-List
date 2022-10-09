@@ -1,6 +1,6 @@
 export default function projects(projectList) {
 
- 
+
     const mainSection = document.getElementById('mainSection');
 
     //1st part is a left bar
@@ -10,6 +10,12 @@ export default function projects(projectList) {
     projectDiv.id = 'projectDiv';
     projectDiv.className = 'projectDiv';
     leftBar.appendChild(projectDiv);
+
+    const newProject = document.createElement('span');
+    newProject.textContent = "Add a new project";
+    newProject.className = 'newProject';
+    newProject.id = 'newProject';
+    projectDiv.appendChild(newProject);
 
     // 2nd part is a div taking 75% of the page's width
     const todoSection = document.createElement('div');
@@ -30,7 +36,7 @@ export default function projects(projectList) {
         projectDiv.appendChild(projectTitle);
 
         const box = document.createElement('box');
-       
+
         box.className = 'projectBox';
         box.id = projectList[i].title;
 
