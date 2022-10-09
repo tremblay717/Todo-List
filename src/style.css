@@ -5,13 +5,14 @@ body {
     min-height: 100vh;
     background-color: rgb(209, 209, 209);
 
+
 }
 
 .header {
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 4.25vh;
+    height: 20px;
     background-color: rgb(38, 119, 81);
     padding: 2%;
     justify-content: space-between;
@@ -75,6 +76,8 @@ body {
     color: white;
     cursor: pointer;
     text-decoration-line: underline;
+
+
 }
 
 #todoSection {
@@ -110,4 +113,54 @@ body {
     box-shadow: 0px 15px 10px -15px #111;
     font-family: 'Roboto', sans-serif;
     font-weight: 570;
+    cursor: pointer;
+
+
+}
+
+#editingForm {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    gap: 5px;
+    min-width: 350px;
+    max-width: 650px;
+    height: 450px;
+    border-left: solid rgb(38, 119, 81);
+    background-color: white;
+    box-shadow: 0px 15px 10px -15px #111;
+    padding: 2%;
+    margin: 2%;
+    border-width: 8px;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 570;
+
+}
+
+.buttonDiv {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: space-around;
+}
+
+.editButton {
+    width: 150px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: rgb(12, 130, 84);
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+}
+
+.cancelButton {
+    width: 150px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: rgb(63, 0, 0);
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
 }

@@ -1,5 +1,6 @@
 export default function projects(projectList) {
 
+ 
     const mainSection = document.getElementById('mainSection');
 
     //1st part is a left bar
@@ -28,8 +29,10 @@ export default function projects(projectList) {
         projectDiv.appendChild(projectTitle);
 
         const box = document.createElement('box');
+       
         box.className = 'projectBox';
         box.id = projectList[i].title;
+
 
         const boxTitle = document.createElement('span');
         boxTitle.textContent = "Title: " + projectList[i].title;
