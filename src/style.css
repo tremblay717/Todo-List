@@ -3,13 +3,15 @@
 body {
     margin: 0;
     min-height: 100vh;
+    background-color: rgb(209, 209, 209);
+
 }
 
 .header {
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 4vh;
+    height: 4.25vh;
     background-color: rgb(38, 119, 81);
     padding: 2%;
     justify-content: space-between;
@@ -18,7 +20,7 @@ body {
 .hero {
     font-family: 'Roboto', sans-serif;
     color: white;
-    font-size: 2.5vw;
+    font-size: 2rem;
 }
 
 #mainSection {
@@ -51,7 +53,7 @@ body {
 .userName {
     font-family: 'Roboto', sans-serif;
     color: black;
-    font-size: 1.25vw;
+    font-size: 1rem;
 }
 
 .projectDiv {
@@ -62,14 +64,14 @@ body {
 
 .myProjects {
     font-family: 'Roboto', sans-serif;
-    font-size: 1.35vw;
+    font-size: 1rem;
     color: white;
     font-weight: 600;
 }
 
 .projectTitle {
     font-family: 'Roboto', sans-serif;
-    font-size: 1.25vw;
+    font-size: 0.95rem;
     color: white;
     cursor: pointer;
     text-decoration-line: underline;
@@ -90,7 +92,8 @@ body {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    background-color: rgba(224, 231, 223, 0.623);
+    /* background-color: rgba(224, 231, 223, 0.623); */
+    background-color: white;
     border-radius: 0px;
     align-self: start;
     text-align: center;
@@ -98,10 +101,11 @@ body {
     border-left: solid rgb(38, 119, 81);
     border-width: 8px;
     border-radius: 10px;
-    width: 15vw;
+    min-width: 200px;
+    width: 300px;
     min-height: 100px;
     height: 15vh;
-    font-size: 1vw;
+    font-size: 1rem;
     text-align: left;
     box-shadow: 0px 15px 10px -15px #111;
     font-family: 'Roboto', sans-serif;
