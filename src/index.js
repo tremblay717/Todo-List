@@ -45,50 +45,185 @@ function editProject() {
 
                 const editing = document.getElementById(boxID);
 
-                const editingForm = document.createElement('div'); // Container that contains a form
-                editingForm.id = 'editingForm';
+                const editingDiv = document.createElement('div'); // Container that contains a form
+                editingDiv.id = 'editingDiv';
+                // editingDiv.textContent = projectList[i].title;
+                document.getElementById('mainSection').appendChild(editingDiv)
 
-                editingForm.textContent = projectList[i].title;
+                const editingForm = document.createElement('form');
+                editingForm.id = 'editingForm'
+                editingDiv.appendChild(editingForm)
 
-                document.getElementById('mainSection').appendChild(editingForm)
+                const projectTitle = document.createElement('span');
+                projectTitle.textContent = "Title: " + projectList[i].title;
+                editingForm.appendChild(projectTitle);
 
-                // Div to hold our button - Push or cancel changes
+                const formUL = document.createElement('ul');
+                editingForm.appendChild(formUL);
+
+                const titleLi = document.createElement('li');
+
+                const titleLabel = document.createElement('label');
+                titleLabel.textContent = "Edit Project Title:";
+
+                const titleInput = document.createElement('input');
+                titleInput.placeholder = projectList[i].title;
+
+                titleLi.appendChild(titleLabel);
+                titleLi.appendChild(titleInput);
+                formUL.appendChild(titleLi);
+
+                const descriptionLi = document.createElement('li');
+
+                const descriptionLabel = document.createElement('label');
+                descriptionLabel.textContent = "Edit Project Description:";
+
+                const descriptionInput = document.createElement('input');
+                descriptionInput.placeholder = projectList[i].description;
+
+                descriptionLi.appendChild(descriptionLabel);
+                descriptionLi.appendChild(descriptionInput);
+                formUL.appendChild(descriptionLi);
+
+                const dateLi = document.createElement('li');
+
+                const dateLabel = document.createElement('label');
+                dateLabel.textContent = "Edit Project Due Date:";
+
+                const currentDate = document.createElement('label');
+                currentDate.textContent = projectList[i].dueDate;
+                currentDate.style.color = 'purple'
+
+                const dateInput = document.createElement('input');
+                dateInput.style.width = '125px';
+                dateInput.type = 'date'
+
+                dateLi.appendChild(dateLabel);
+                dateLi.appendChild(currentDate);
+                dateLi.appendChild(dateInput);
+                formUL.appendChild(dateLi);
+
+                const priorityLi = document.createElement('li');
+
+                const priorityLabel = document.createElement('label');
+                priorityLabel.textContent = "Edit Project Priority:";
+
+                const currentPriority = document.createElement('label');
+                currentPriority.textContent = projectList[i].priority;
+                currentPriority.style.color = 'purple'
+
+                const prioritySelect = document.createElement('select');
+                prioritySelect.id = 'prioritySelect';
+                prioritySelect.style.width = '130px';
+
+                const optionDefault = document.createElement('option');
+                optionDefault.value = "";
+                optionDefault.textContent = "";
+                prioritySelect.appendChild(optionDefault)
+
+
+                const optionLow = document.createElement('option');
+                optionLow.value = "Low";
+                optionLow.textContent = 'Low'
+                prioritySelect.appendChild(optionLow)
+
+
+                const optionMedium = document.createElement('option');
+                optionMedium.value = "Medium";
+                optionMedium.textContent = "Medium";
+                prioritySelect.appendChild(optionMedium);
+
+
+                const optionHigh = document.createElement('option');
+                optionHigh.value = "High";
+                optionHigh.textContent = "High";
+                prioritySelect.appendChild(optionHigh);
+
+                priorityLi.appendChild(priorityLabel);
+                priorityLi.appendChild(currentPriority);
+                priorityLi.appendChild(prioritySelect);
+                formUL.appendChild(priorityLi);
+
+                // Div to hold our button - Push or Cancel changes
                 const buttonDiv = document.createElement('div');
                 buttonDiv.className = 'buttonDiv';
                 editingForm.appendChild(buttonDiv);
 
-                const editButton = document.createElement('button');
+                const editButton = document.createElement('div');
                 editButton.className = 'editButton';
 
                 editButton.textContent = 'Confirm Change(s)';
                 buttonDiv.appendChild(editButton);
 
-                const cancelButton = document.createElement('button');
+                editButton.onclick = function () {
+                    console.log(titleInput.value, descriptionInput.value, dateInput.value, prioritySelect.value);
+
+                    if (titleInput.value == "" && descriptionInput.value == "" && dateInput.value == "" && prioritySelect.value == "") {
+                        return;
+                    } else {
+
+                        if (titleInput.value != "") {
+                            projectList[i].title = titleInput.value;
+                        }
+
+                        if (descriptionInput.value != "") {
+                            projectList[i].description = descriptionInput.value;
+                        }
+
+                        if (dateInput.value != "") {
+                            projectList[i].dueDate = dateInput.value;
+                        }
+                        if (prioritySelect.value != "") {
+                            projectList[i].priority = prioritySelect.value;
+                        }
+
+                        editingDiv.remove(); // Deleting form
+                        document.getElementById('projectDiv').remove(); // Removing elements that need to be updated;
+                        document.getElementById('todoSection').remove(); // Removing elements that need to be updated;
+                        projects(projectList); // Calling the projects function - updated elements on screen
+                        editProject(); // Calling editProject function - so we may reuse it for further editing.
+                    }
+                }
+
+                const cancelButton = document.createElement('div');
                 cancelButton.className = 'cancelButton';
                 cancelButton.id = 'cancelButton';
                 cancelButton.textContent = 'Cancel Change(s)';
                 buttonDiv.appendChild(cancelButton);
 
-                cancelButton.onclick = function(){ // Function to cancel changes
-                    editingForm.remove();
+                cancelButton.onclick = function () { // Function to cancel changes
+                    editingDiv.remove();
+
+                }
+
+                const deleteButton = document.createElement('div');
+
+                deleteButton.className = 'deleteButton';
+                deleteButton.id = 'deleteButton';
+                deleteButton.textContent = 'Delete Project';
+                buttonDiv.appendChild(deleteButton);
+
+                deleteButton.onclick = function () {
+
+                    const newProjectList = projectList.filter(Project => Project.title != projectList[i].title);
+                    projectList = newProjectList;
+
+                    editingDiv.remove(); // Deleting form
+                    document.getElementById('projectDiv').remove(); // Removing elements that need to be updated;
+                    document.getElementById('todoSection').remove(); // Removing elements that need to be updated;
+                    projects(projectList); // Calling the projects function - updated elements on screen
+                    editProject(); // Calling editProject function - so we may reuse it for further editing.
                 }
             }
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
         }
     }
 }
 
-
 editProject();
+
+
+
+
+
+
+

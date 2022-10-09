@@ -7,6 +7,7 @@ export default function projects(projectList) {
     const leftBar = document.getElementById('leftBar');
 
     const projectDiv = document.createElement('div');
+    projectDiv.id = 'projectDiv';
     projectDiv.className = 'projectDiv';
     leftBar.appendChild(projectDiv);
 
