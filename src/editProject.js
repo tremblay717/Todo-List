@@ -8,12 +8,11 @@ export default function editProject() {
         ...localStorage
     };
 
-    var list = [];
+    let list = [];
 
     for (let i = 0; i < localStorage.length; i++) {
 
         const item = JSON.parse(items[Object.keys(items)[i]]); // We store each object in localStorage in an array;
-
         list.push(item);
     }
 
@@ -105,18 +104,15 @@ export default function editProject() {
                 optionDefault.textContent = "";
                 prioritySelect.appendChild(optionDefault);
 
-
                 const optionLow = document.createElement('option');
                 optionLow.value = "Low";
                 optionLow.textContent = 'Low'
                 prioritySelect.appendChild(optionLow);
 
-
                 const optionMedium = document.createElement('option');
                 optionMedium.value = "Medium";
                 optionMedium.textContent = "Medium";
                 prioritySelect.appendChild(optionMedium);
-
 
                 const optionHigh = document.createElement('option');
                 optionHigh.value = "High";
@@ -146,18 +142,15 @@ export default function editProject() {
                 statusDefault.textContent = "";
                 statusSelect.appendChild(statusDefault);
 
-
                 const statusNot = document.createElement('option');
                 statusNot.value = "Not Started";
                 statusNot.textContent = 'Not Started'
                 statusSelect.appendChild(statusNot);
 
-
                 const statusProgress = document.createElement('option');
                 statusProgress.value = "In Progress";
                 statusProgress.textContent = "In Progress";
                 statusSelect.appendChild(statusProgress);
-
 
                 const statusDone = document.createElement('option');
                 statusDone.value = "Done";
@@ -205,7 +198,7 @@ export default function editProject() {
                             list[i].status = statusSelect.value;
                         }
 
-                        const changedObject = list[i]
+                        const changedObject = list[i];
 
                         const newprojectList = list.filter(Project => Project.title != list[i].title);
 
@@ -214,9 +207,9 @@ export default function editProject() {
 
                         editingDiv.remove();
 
-                        document.getElementById('leftBar').removeChild(resetDiv); 
-                        document.getElementById('projectDiv').remove(); 
-                        document.getElementById('todoSection').remove(); 
+                        document.getElementById('leftBar').removeChild(resetDiv);
+                        document.getElementById('projectDiv').remove();
+                        document.getElementById('todoSection').remove();
 
                         projects(newprojectList);
                         newProject();
@@ -243,20 +236,18 @@ export default function editProject() {
                 deleteButton.textContent = 'Delete Project';
                 buttonDiv.appendChild(deleteButton);
 
-
-
                 deleteButton.onclick = function () {
                     const deleteTitle = list[i].title;
 
                     window.localStorage.removeItem(deleteTitle);
 
-                    editingDiv.remove(); 
-                    document.getElementById('projectDiv').remove(); 
-                    document.getElementById('todoSection').remove(); 
+                    editingDiv.remove();
+                    document.getElementById('projectDiv').remove();
+                    document.getElementById('todoSection').remove();
 
-                    projects(); 
+                    projects();
                     newProject();
-                    editProject(); 
+                    editProject();
                     resetProjects();
                 }
             }

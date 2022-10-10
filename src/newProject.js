@@ -112,18 +112,15 @@ export default function newProject() {
             statusDefault.textContent = "";
             statusSelect.appendChild(statusDefault);
 
-
             const statusNot = document.createElement('option');
             statusNot.value = "Not Started";
             statusNot.textContent = 'Not Started';
             statusSelect.appendChild(statusNot);
 
-
             const statusProgress = document.createElement('option');
             statusProgress.value = "In Progress";
             statusProgress.textContent = "In Progress";
             statusSelect.appendChild(statusProgress);
-
 
             const statusDone = document.createElement('option');
             statusDone.value = "Done";
