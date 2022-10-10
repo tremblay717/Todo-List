@@ -207,7 +207,6 @@ export default function editProject() {
 
                         editingDiv.remove();
 
-                        document.getElementById('leftBar').removeChild(resetDiv);
                         document.getElementById('projectDiv').remove();
                         document.getElementById('todoSection').remove();
 

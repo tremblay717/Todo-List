@@ -19,8 +19,6 @@ export default function resetProjects() {
         const job = new Project('New Job', 'Change for a better job', '2022-12-31', 'Low', 'Not Started');
         const coding = new Project('Coding', 'Learn to code', '2023-10-31', 'Medium', 'Not Started');
 
-        const reset = document.getElementById('resetProjects');
-
         let projectList = [home, school, groceries, car, running, everest, job, coding];
 
         window.localStorage.clear();
@@ -36,8 +34,9 @@ export default function resetProjects() {
         document.getElementById('todoSection').remove(); // Removing elements that need to be updated;
 
         projects();
-        newProject();
-        resetProjects();
+        newProject();  
         editProject();
+        resetProjects();
+
     }
 }
