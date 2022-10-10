@@ -1,4 +1,4 @@
-export default function projects(testList) {
+export default function projects() {
     
 
     const mainSection = document.getElementById('mainSection');
@@ -28,35 +28,46 @@ export default function projects(testList) {
     todoSection.id = 'todoSection';
     mainSection.appendChild(todoSection);
 
+    var list = [];
 
+    let items = { // Retrieving the local Storage everytime the page is loaded
+        ...localStorage
+    };
 
-    for (let i = 0; i < testList.length; i++) { // Iterating to display our objects
+    for (let i = 0; i < localStorage.length; i++) {
+    
+        const item = JSON.parse(items[Object.keys(items)[i]]); // We store each object in localStorage in an array;
+    
+        list.push(item);
+    }
+
+    for (let i = 0; i < list.length; i++) { // Iterating to display our objects
 
         const projectTitle = document.createElement('span');
         projectTitle.className = 'projectTitle';
-        projectTitle.textContent = testList[i].title;
+        projectTitle.textContent = list[i].title;
         projectDiv.appendChild(projectTitle);
 
         const box = document.createElement('box');
 
         box.className = 'projectBox';
-        box.id = testList[i].title;
+        box.id = list[i].title;
 
 
         const boxTitle = document.createElement('span');
-        boxTitle.textContent = "Title: " + testList[i].title;
+        boxTitle.textContent = "Title: " + list[i].title;
 
         const boxDescription = document.createElement('span');
-        boxDescription.textContent = "Description: " + testList[i].description;
+        boxDescription.textContent = "Description: " + list[i].description;
 
         const boxDate = document.createElement('span');
-        boxDate.textContent = "Due date: " + testList[i].dueDate;
+        boxDate.textContent = "Due date: " + list[i].dueDate;
 
         const boxPriority = document.createElement('span');
-        boxPriority.textContent = "Priority: " + testList[i].priority;
+        boxPriority.textContent = "Priority: " + list[i].priority;
 
         const boxStatus = document.createElement('span');
-        boxStatus.textContent = "Status: " + testList[i].status;
+        boxStatus.textContent = "Status: " + list[i].status;
 
         const boxContent = [boxTitle, boxDescription, boxDate, boxPriority,boxStatus];
 
