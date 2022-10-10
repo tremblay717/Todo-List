@@ -1,4 +1,4 @@
-export default function projects(projectList) {
+export default function projects(testList) {
     
 
     const mainSection = document.getElementById('mainSection');
@@ -30,30 +30,30 @@ export default function projects(projectList) {
 
 
 
-    for (let i = 0; i < projectList.length; i++) { // Iterating to display our objects
+    for (let i = 0; i < testList.length; i++) { // Iterating to display our objects
 
         const projectTitle = document.createElement('span');
         projectTitle.className = 'projectTitle';
-        projectTitle.textContent = projectList[i].title;
+        projectTitle.textContent = testList[i].title;
         projectDiv.appendChild(projectTitle);
 
         const box = document.createElement('box');
 
         box.className = 'projectBox';
-        box.id = projectList[i].title;
+        box.id = testList[i].title;
 
 
         const boxTitle = document.createElement('span');
-        boxTitle.textContent = "Title: " + projectList[i].title;
+        boxTitle.textContent = "Title: " + testList[i].title;
 
         const boxDescription = document.createElement('span');
-        boxDescription.textContent = "Description: " + projectList[i].description;
+        boxDescription.textContent = "Description: " + testList[i].description;
 
         const boxDate = document.createElement('span');
-        boxDate.textContent = "Due date: " + projectList[i].dueDate;
+        boxDate.textContent = "Due date: " + testList[i].dueDate;
 
         const boxPriority = document.createElement('span');
-        boxPriority.textContent = "Priority: " + projectList[i].priority;
+        boxPriority.textContent = "Priority: " + testList[i].priority;
 
         const boxContent = [boxTitle, boxDescription, boxDate, boxPriority];
 
