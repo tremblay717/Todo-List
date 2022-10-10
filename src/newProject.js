@@ -1,9 +1,24 @@
 import projects from './projects.js';
+import Project from './Project.js';
 import editProject from './editProject.js';
+import resetProjects from './resetProjects.js';
 
 export default function newProject() {
 
     const addProject = document.getElementById('newProject');
+
+    let items = { // Retrieving the local Storage everytime the page is loaded
+        ...localStorage
+    };
+
+    var list = [];
+
+    for (let i = 0; i < localStorage.length; i++) {
+
+        const item = JSON.parse(items[Object.keys(items)[i]]); // We store each object in localStorage in an array;
+
+        list.push(item);
+    }
 
     addProject.onclick = function () {
 
@@ -145,27 +160,23 @@ export default function newProject() {
 
 
 
-            confirmButton.onclick = function (blabla) {
-                console.log(data)
-                console.log(typeof (data))
+            confirmButton.onclick = function () {
+
                 if (titleInput.value == "" && descriptionInput.value == "" && dateInput.value == "" && prioritySelect.value == "" && statusSelect.value == "") {
                     return;
                 } else {
+
                     const newObject = new Project(titleInput.value, descriptionInput.value, dateInput.value, prioritySelect.value, statusSelect.value);
 
                     window.localStorage.setItem(newObject.title, JSON.stringify(newObject));
 
-                    data.push(newObject);
-                    console.log(data);
                     newProjectDiv.remove(); // Deleting form
-                    document.getElementById('leftBar').removeChild(resetDiv); //Removing the reset div 
                     document.getElementById('projectDiv').remove(); // Removing elements that need to be updated;
                     document.getElementById('todoSection').remove(); // Removing elements that need to be updated;
 
-                    projects(data); // Calling the projects function - updated elements on screen
-                    document.getElementById('leftBar').appendChild(resetDiv); // appending the reset div
-                    newProject(data);
-                    editProject(data); // Calling editProject function - so we may reuse it for further editing.
+                    projects(); // Calling the projects function - updated elements on screen
+                    newProject();
+                    editProject(); // Calling editProject function - so we may reuse it for further editing.
                     resetProjects();
                 }
             }

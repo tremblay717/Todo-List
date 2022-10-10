@@ -4,8 +4,6 @@ import resetProjects from './resetProjects.js';
 
 export default function editProject() {
 
-
-
     let items = { // Retrieving the local Storage everytime the page is loaded
         ...localStorage
     };
@@ -22,7 +20,6 @@ export default function editProject() {
 
 
     const projectBoxes = document.querySelectorAll('.projectBox');
-    console.log("projectBoxes", projectBoxes.length)
     for (let i = 0; i < projectBoxes.length; i++) {
 
         const item = list[i]
@@ -226,7 +223,6 @@ export default function editProject() {
                         document.getElementById('todoSection').remove(); // Removing elements that need to be updated;
 
                         projects(newprojectList); // Calling the projects function - updated elements on screen
-                        document.getElementById('leftBar').appendChild(resetDiv); // appending the reset div
                         newProject();
                         editProject(newprojectList); // Calling editProject function - so we may reuse it for further editing.
                         resetProjects();
