@@ -5,24 +5,25 @@ import projects from './projects.js';
 basicHtml(); //Displaying the basic html template through a function call
 
 // Basis Constructor for project
-function Project(title, description, dueDate, priority) {
+function Project(title, description, dueDate, priority,status) {
 
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
+    this.status = status
 
 }
 
 //Creating a few random projects to display it on our screen
-const home = new Project('Home', 'Renovating my Home', '2023-12-31', 'Low');
-const school = new Project('School', 'Finishing my degree', '2023-12-31', 'Low');
-const groceries = new Project('Groceries', 'Buy my groceries', '2023-01-01', 'High');
-const car = new Project('New Car', 'Buy a new car', '2023-12-31', 'Medium');
-const running = new Project('Half-marathon', 'Running a half-marathon', '2023-09-30', 'High');
-const everest = new Project('Climbing Everest', 'Climbing Mount Everest', '2025-06-30', 'Medium');
-const job = new Project('New Job', 'Change for a better job', '2022-12-31', 'Low');
-const coding = new Project('Coding', 'Learn to code', '2023-10-31', 'Medium');
+const home = new Project('Home', 'Renovating my Home', '2023-12-31', 'Low','Not Started');
+const school = new Project('School', 'Finishing my degree', '2023-12-31', 'Low','Not Started');
+const groceries = new Project('Groceries', 'Buy my groceries', '2023-01-01', 'High','Not Started');
+const car = new Project('New Car', 'Buy a new car', '2023-12-31', 'Medium','Not Started');
+const running = new Project('Half-marathon', 'Running a half-marathon', '2023-09-30', 'High','Not Started');
+const everest = new Project('Climbing Everest', 'Climbing Mount Everest', '2025-06-30', 'Medium','Not Started');
+const job = new Project('New Job', 'Change for a better job', '2022-12-31', 'Low','Not Started');
+const coding = new Project('Coding', 'Learn to code', '2023-10-31', 'Medium','Not Started');
 
 //Objects are stored in this array, r we can update our display at any time when calling specific functions.
 let projectList = [home, school, groceries, car, running, everest, job, coding];
@@ -31,14 +32,14 @@ for (let i = 0; i < projectList.length; i++) {
 
     const myProject = projectList[i];
 
-    if (JSON.parse(window.localStorage.getItem(myProject)) === null) {
+    if (JSON.parse(window.localStorage.getItem(myProject)) === null) { // If the user previously deleted an object or loads the page for the first time, it won't see any objects on screen, unless they click on the default projects span in the left panel
         continue;
     } else {
-        window.localStorage.setItem(projectList[i].title, JSON.stringify(myProject));
+        window.localStorage.setItem(projectList[i].title, JSON.stringify(myProject)); // The Objects are stored in local storage
     }
 }
 
-let items = {
+let items = { // Retrieving the local Storage everytime the page is loaded
     ...localStorage
 };
 
@@ -46,7 +47,7 @@ let testList = [];
 
 for (let i = 0; i < localStorage.length; i++) {
 
-    const item = JSON.parse(items[Object.keys(items)[i]]);
+    const item = JSON.parse(items[Object.keys(items)[i]]); // We store each object in localStorage in an array;
 
     testList.push(item);
 }
@@ -61,7 +62,7 @@ function editProject() {
     for (let i = 0; i < projectBoxes.length; i++) {
 
         projectBoxes[i].id = testList[i].title; // The ID is the object's title
-        const boxID = projectBoxes[i].id
+        // const boxID = projectBoxes[i].id
 
         projectBoxes[i].onclick = function () {
 
@@ -69,7 +70,7 @@ function editProject() {
                 return;
             } else {
 
-                const editing = document.getElementById(boxID);
+                // const editing = document.getElementById(boxID);
 
                 const editingDiv = document.createElement('div'); // Container that contains a form
                 editingDiv.id = 'editingDiv';
@@ -169,6 +170,47 @@ function editProject() {
                 priorityLi.appendChild(prioritySelect);
                 formUL.appendChild(priorityLi);
 
+                const statusLi = document.createElement('li');
+
+                const statusLabel = document.createElement('label');
+                statusLabel.textContent = "Edit Project Status:";
+
+                const currentStatus = document.createElement('label');
+                currentStatus.textContent = testList[i].status;
+                currentStatus.style.color = 'purple'
+
+                const statusSelect = document.createElement('select');
+                statusSelect.id = 'statusSelect';
+                statusSelect.style.width = '130px';
+
+                const statusDefault = document.createElement('option');
+                statusDefault.value = "";
+                statusDefault.textContent = "";
+                statusSelect.appendChild(statusDefault)
+
+
+                const statusNot = document.createElement('option');
+                statusNot.value = "Not Started";
+                statusNot.textContent = 'Not Started'
+                statusSelect.appendChild(statusNot)
+
+
+                const statusProgress = document.createElement('option');
+                statusProgress.value = "In Progress";
+                statusProgress.textContent = "In Progress";
+                statusSelect.appendChild(statusProgress);
+
+
+                const statusDone = document.createElement('option');
+                statusDone.value = "Done";
+                statusDone.textContent = "Done";
+                statusSelect.appendChild(statusDone);
+
+                statusLi.appendChild(statusLabel);
+                statusLi.appendChild(currentStatus);
+                statusLi.appendChild(statusSelect);
+                formUL.appendChild(statusLi);
+
                 // Div to hold our button - Push or Cancel changes
                 const buttonDiv = document.createElement('div');
                 buttonDiv.className = 'buttonDiv';
@@ -182,7 +224,7 @@ function editProject() {
 
                 editButton.onclick = function () {
 
-                    if (titleInput.value == "" && descriptionInput.value == "" && dateInput.value == "" && prioritySelect.value == "") {
+                    if (titleInput.value == "" && descriptionInput.value == "" && dateInput.value == "" && prioritySelect.value == "" && statusSelect.value == "") {
                         return;
                     } else {
 
@@ -200,6 +242,9 @@ function editProject() {
                         }
                         if (prioritySelect.value != "") {
                             testList[i].priority = prioritySelect.value;
+                        }
+                        if (statusSelect.value != ""){
+                            testList[i].status = statusSelect.value;
                         }
 
                         const changedObject = testList[i]
@@ -362,6 +407,42 @@ function newProject() {
             priorityLi.appendChild(prioritySelect);
             formUL.appendChild(priorityLi);
 
+            const statusLi = document.createElement('li');
+
+            const statusLabel = document.createElement('label');
+            statusLabel.textContent = "Project Status:";
+
+            const statusSelect = document.createElement('select');
+            statusSelect.id = 'statusSelect';
+            statusSelect.style.width = '130px';
+
+            const statusDefault = document.createElement('option');
+            statusDefault.value = "";
+            statusDefault.textContent = "";
+            statusSelect.appendChild(statusDefault)
+
+
+            const statusNot = document.createElement('option');
+            statusNot.value = "Not Started";
+            statusNot.textContent = 'Not Started'
+            statusSelect.appendChild(statusNot)
+
+
+            const statusProgress = document.createElement('option');
+            statusProgress.value = "In Progress";
+            statusProgress.textContent = "In Progress";
+            statusSelect.appendChild(statusProgress);
+
+
+            const statusDone = document.createElement('option');
+            statusDone.value = "Done";
+            statusDone.textContent = "Done";
+            statusSelect.appendChild(statusDone);
+
+            statusLi.appendChild(statusLabel);
+            statusLi.appendChild(statusSelect);
+            formUL.appendChild(statusLi);
+
             // Div to hold our button - Push or Cancel changes
             const buttonDiv = document.createElement('div');
             buttonDiv.className = 'buttonDiv';
@@ -375,10 +456,10 @@ function newProject() {
 
             confirmButton.onclick = function () {
 
-                if (titleInput.value == "" && descriptionInput.value == "" && dateInput.value == "" && prioritySelect.value == "") {
+                if (titleInput.value == "" && descriptionInput.value == "" && dateInput.value == "" && prioritySelect.value == "" && statusSelect.value == "") {
                     return;
                 } else {
-                    const newObject = new Project(titleInput.value, descriptionInput.value, dateInput.value, prioritySelect.value);
+                    const newObject = new Project(titleInput.value, descriptionInput.value, dateInput.value, prioritySelect.value, statusSelect.value);
 
                     window.localStorage.setItem(newObject.title, JSON.stringify(newObject));
                     testList.push(newObject);
@@ -418,7 +499,7 @@ document.getElementById('leftBar').appendChild(resetDiv);
 
 const resetProject = document.createElement('span');
 resetProject.id = 'resetProjects';
-resetProject.textContent = 'Reset projects to default';
+resetProject.textContent = 'Default Projects';
 resetDiv.appendChild(resetProject);
 
 function resetProjects() {
@@ -448,7 +529,6 @@ function resetProjects() {
         for (let i = 0; i < localStorage.length; i++) {
 
             const item = JSON.parse(items[Object.keys(items)[i]]);
-
             testList.push(item);
         }
 

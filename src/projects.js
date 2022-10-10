@@ -55,7 +55,10 @@ export default function projects(testList) {
         const boxPriority = document.createElement('span');
         boxPriority.textContent = "Priority: " + testList[i].priority;
 
-        const boxContent = [boxTitle, boxDescription, boxDate, boxPriority];
+        const boxStatus = document.createElement('span');
+        boxStatus.textContent = "Status: " + testList[i].status;
+
+        const boxContent = [boxTitle, boxDescription, boxDate, boxPriority,boxStatus];
 
         for (let i = 0; i < boxContent.length; i++) {
             box.appendChild(boxContent[i]);
