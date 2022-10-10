@@ -39,4 +39,13 @@ export default function basicHtml() {
     leftBar.className = 'leftBar';
     mainSection.appendChild(leftBar);
 
+    const resetDiv = document.createElement('div');
+    resetDiv.id = 'resetDiv';
+    document.getElementById('leftBar').appendChild(resetDiv);
+
+    const resetProject = document.createElement('span');
+    resetProject.id = 'resetProjects';
+    resetProject.textContent = 'Default Projects';
+    resetDiv.appendChild(resetProject);
+    
 }
