@@ -11,6 +11,7 @@ function Project(title, description, dueDate, priority) {
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
+
 }
 
 //Creating a few random projects to display it on our screen
@@ -23,8 +24,20 @@ const everest = new Project('Climbing Everest', 'Climbing Mount Everest', '2025-
 const job = new Project('New Job', 'Change for a better job', '2022-12-31', 'Low');
 const coding = new Project('Coding', 'Learn to code', '2023-10-31', 'Medium');
 
-//Objects are stored in this array, so we can update our display at any time when calling specific functions.
+//Objects are stored in this array, r we can update our display at any time when calling specific functions.
 let projectList = [home, school, groceries, car, running, everest, job, coding];
+
+for (let i = 0; i < projectList.length; i++) {
+
+    const myProject = projectList[i];
+
+    if (JSON.parse(window.localStorage.getItem(myProject)) === null) {
+        continue;
+    } else {
+        window.localStorage.setItem(projectList[i].title, JSON.stringify(myProject));
+    }
+}
+
 
 projects(projectList); //Displaying our objects on screen
 
@@ -39,7 +52,7 @@ function editProject() {
 
         projectBoxes[i].onclick = function () {
 
-            if (document.getElementById('editingForm') != null) {
+            if (document.getElementById('editingDiv') != null || document.getElementById('newProjectDiv')) {
                 return;
             } else {
 
@@ -156,7 +169,6 @@ function editProject() {
                 buttonDiv.appendChild(editButton);
 
                 editButton.onclick = function () {
-                    console.log(titleInput.value, descriptionInput.value, dateInput.value, prioritySelect.value);
 
                     if (titleInput.value == "" && descriptionInput.value == "" && dateInput.value == "" && prioritySelect.value == "") {
                         return;
@@ -178,10 +190,16 @@ function editProject() {
                         }
 
                         editingDiv.remove(); // Deleting form
+
+                        document.getElementById('leftBar').removeChild(resetDiv); //Removing the reset div 
                         document.getElementById('projectDiv').remove(); // Removing elements that need to be updated;
                         document.getElementById('todoSection').remove(); // Removing elements that need to be updated;
+
                         projects(projectList); // Calling the projects function - updated elements on screen
+                        document.getElementById('leftBar').appendChild(resetDiv); // appending the reset div
+                        newProject();
                         editProject(); // Calling editProject function - so we may reuse it for further editing.
+                        resetProjects();
                     }
                 }
 
@@ -203,17 +221,25 @@ function editProject() {
                 deleteButton.textContent = 'Delete Project';
                 buttonDiv.appendChild(deleteButton);
 
+                const deleteTitle = projectList[i].title // this variable stores the right object title before removing it from our list
+
                 deleteButton.onclick = function () {
 
-                    const newProjectList = projectList.filter(Project => Project.title != projectList[i].title);
-                    projectList = newProjectList;
+                    const newprojectList = projectList.filter(Project => Project.title != projectList[i].title);
+                    projectList = newprojectList;
+
+                    window.localStorage.removeItem(deleteTitle);
 
                     editingDiv.remove(); // Deleting form
+                    document.getElementById('leftBar').removeChild(resetDiv); //Removing the reset div 
                     document.getElementById('projectDiv').remove(); // Removing elements that need to be updated;
                     document.getElementById('todoSection').remove(); // Removing elements that need to be updated;
+
                     projects(projectList); // Calling the projects function - updated elements on screen
+                    document.getElementById('leftBar').appendChild(resetDiv); // appending the reset div
                     newProject();
                     editProject(); // Calling editProject function - so we may reuse it for further editing.
+                    resetProjects();
                 }
             }
         }
@@ -226,7 +252,7 @@ function newProject() {
 
     addProject.onclick = function () {
 
-        if (document.getElementById('newProjectDiv') != null) {
+        if (document.getElementById('newProjectDiv') != null || document.getElementById('editingDiv') != null) {
             return;
         } else {
 
@@ -296,18 +322,15 @@ function newProject() {
             prioritySelect.id = 'prioritySelect';
             prioritySelect.style.width = '130px';
 
-
             const optionLow = document.createElement('option');
             optionLow.value = "Low";
             optionLow.textContent = 'Low'
             prioritySelect.appendChild(optionLow)
 
-
             const optionMedium = document.createElement('option');
             optionMedium.value = "Medium";
             optionMedium.textContent = "Medium";
             prioritySelect.appendChild(optionMedium);
-
 
             const optionHigh = document.createElement('option');
             optionHigh.value = "High";
@@ -334,23 +357,28 @@ function newProject() {
                 if (titleInput.value == "" && descriptionInput.value == "" && dateInput.value == "" && prioritySelect.value == "") {
                     return;
                 } else {
-
                     const newObject = new Project(titleInput.value, descriptionInput.value, dateInput.value, prioritySelect.value);
+
+                    window.localStorage.setItem(newObject.title, JSON.stringify(newObject));
 
                     projectList.push(newObject);
                     newProjectDiv.remove(); // Deleting form
+                    document.getElementById('leftBar').removeChild(resetDiv); //Removing the reset div 
                     document.getElementById('projectDiv').remove(); // Removing elements that need to be updated;
                     document.getElementById('todoSection').remove(); // Removing elements that need to be updated;
+
                     projects(projectList); // Calling the projects function - updated elements on screen
+                    document.getElementById('leftBar').appendChild(resetDiv); // appending the reset div
                     newProject();
                     editProject(); // Calling editProject function - so we may reuse it for further editing.
+                    resetProjects();
                 }
             }
 
             const cancelButton = document.createElement('div');
             cancelButton.className = 'cancelButton';
             cancelButton.id = 'cancelButton';
-            cancelButton.textContent = 'Cancel Change(s)';
+            cancelButton.textContent = 'Cancel';
             buttonDiv.appendChild(cancelButton);
 
             cancelButton.onclick = function () { // Function to cancel changes
@@ -363,6 +391,48 @@ function newProject() {
     }
 }
 
+const resetDiv = document.createElement('div');
+resetDiv.id = 'resetDiv';
+document.getElementById('leftBar').appendChild(resetDiv);
+
+const resetProject = document.createElement('span');
+resetProject.id = 'resetProjects';
+resetProject.textContent = 'Reset projects to default';
+resetDiv.appendChild(resetProject);
+
+function resetProjects() {
+
+    const reset = document.getElementById('resetProjects');
+
+    console.log('test');
+    reset.onclick = function () {
+
+        window.localStorage.clear();
+
+        let projectList = [home, school, groceries, car, running, everest, job, coding];
+
+        for (let i = 0; i < projectList.length; i++) {
+
+            const myProject = projectList[i];
+
+            window.localStorage.setItem(projectList[i].title, JSON.stringify(myProject));
+
+        }
+
+        document.getElementById('leftBar').removeChild(resetDiv); //Removing the reset div 
+        document.getElementById('projectDiv').remove(); // Removing elements that need to be updated;
+        document.getElementById('todoSection').remove(); // Removing elements that need to be updated;
+
+        projects(projectList); // Calling the projects function - updated elements on screen
+        document.getElementById('leftBar').appendChild(resetDiv); // appending the reset div
+        newProject();
+        editProject(); // Calling editProject function - so we may reuse it for further editing.
+        resetProjects();
+
+    }
+}
+
 
 newProject();
 editProject();
+resetProjects();

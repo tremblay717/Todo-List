@@ -1,5 +1,5 @@
 export default function projects(projectList) {
-
+    
 
     const mainSection = document.getElementById('mainSection');
 
@@ -15,18 +15,20 @@ export default function projects(projectList) {
     newProject.textContent = "Add a new project";
     newProject.className = 'newProject';
     newProject.id = 'newProject';
-    projectDiv.appendChild(newProject);
+    projectDiv.appendChild(newProject);    
+    
+    //Span tag for my project projectList
+    const myProjects = document.createElement('span');
+    myProjects.className = 'myProjects';
+    myProjects.textContent = 'My Projects';
+    projectDiv.appendChild(myProjects);
 
     // 2nd part is a div taking 75% of the page's width
     const todoSection = document.createElement('div');
     todoSection.id = 'todoSection';
     mainSection.appendChild(todoSection);
 
-    //Span tag for my project list
-    const myProjects = document.createElement('span');
-    myProjects.className = 'myProjects';
-    myProjects.textContent = 'My Projects';
-    projectDiv.appendChild(myProjects);
+
 
     for (let i = 0; i < projectList.length; i++) { // Iterating to display our objects
 
