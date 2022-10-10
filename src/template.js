@@ -47,5 +47,5 @@ export default function basicHtml() {
     resetProject.id = 'resetProjects';
     resetProject.textContent = 'Default Projects';
     resetDiv.appendChild(resetProject);
-    
+
 }

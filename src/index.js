@@ -18,7 +18,10 @@ const everest = new Project('Climbing Everest', 'Climbing Mount Everest', '2025-
 const job = new Project('New Job', 'Change for a better job', '2022-12-31', 'Low', 'Not Started');
 const coding = new Project('Coding', 'Learn to code', '2023-10-31', 'Medium', 'Not Started');
 
-//Objects are stored in this array, r we can update our display at any time when calling specific functions.
+
+
+
+//Default Objects are stored in this array, we can update our display at any time when calling specific functions.
 let projectList = [home, school, groceries, car, running, everest, job, coding];
 
 for (let i = 0; i < projectList.length; i++) {
@@ -45,7 +48,7 @@ for (let i = 0; i < localStorage.length; i++) {
     testList.push(item);
 }
 
-projects(); //Displaying our objects on screen
+projects();
 newProject();
 editProject();
 resetProjects();

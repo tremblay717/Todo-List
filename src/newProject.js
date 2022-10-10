@@ -7,23 +7,11 @@ export default function newProject() {
 
     const addProject = document.getElementById('newProject');
 
-    let items = { // Retrieving the local Storage everytime the page is loaded
-        ...localStorage
-    };
-
-    var list = [];
-
-    for (let i = 0; i < localStorage.length; i++) {
-
-        const item = JSON.parse(items[Object.keys(items)[i]]); // We store each object in localStorage in an array;
-
-        list.push(item);
-    }
-
     addProject.onclick = function () {
 
         if (document.getElementById('newProjectDiv') != null || document.getElementById('editingDiv') != null) {
             return;
+
         } else {
 
             if (document.getElementById('editingDiv') != null) {
@@ -32,15 +20,14 @@ export default function newProject() {
 
             const newProjectDiv = document.createElement('div'); // Container that contains a form
             newProjectDiv.id = 'newProjectDiv';
-            // editingDiv.textContent = projectList[i].title;
-            document.getElementById('mainSection').appendChild(newProjectDiv)
+            document.getElementById('mainSection').appendChild(newProjectDiv);
 
             const newForm = document.createElement('form');
-            newForm.id = 'newForm'
-            newProjectDiv.appendChild(newForm)
+            newForm.id = 'newForm';
+            newProjectDiv.appendChild(newForm);
 
             const projectTitle = document.createElement('span');
-            projectTitle.textContent = "Add a new Project"
+            projectTitle.textContent = "Add a new Project";
             newForm.appendChild(projectTitle);
 
             const formUL = document.createElement('ul');
@@ -52,7 +39,7 @@ export default function newProject() {
             titleLabel.textContent = " Project Title:";
 
             const titleInput = document.createElement('input');
-            titleInput.placeholder = 'Computer'
+            titleInput.placeholder = 'Computer';
 
             titleLi.appendChild(titleLabel);
             titleLi.appendChild(titleInput);
@@ -77,7 +64,7 @@ export default function newProject() {
 
             const dateInput = document.createElement('input');
             dateInput.style.width = '125px';
-            dateInput.type = 'date'
+            dateInput.type = 'date';
 
             dateLi.appendChild(dateLabel);
             dateLi.appendChild(dateInput);
@@ -123,13 +110,13 @@ export default function newProject() {
             const statusDefault = document.createElement('option');
             statusDefault.value = "";
             statusDefault.textContent = "";
-            statusSelect.appendChild(statusDefault)
+            statusSelect.appendChild(statusDefault);
 
 
             const statusNot = document.createElement('option');
             statusNot.value = "Not Started";
-            statusNot.textContent = 'Not Started'
-            statusSelect.appendChild(statusNot)
+            statusNot.textContent = 'Not Started';
+            statusSelect.appendChild(statusNot);
 
 
             const statusProgress = document.createElement('option');
@@ -158,25 +145,21 @@ export default function newProject() {
             confirmButton.textContent = 'Confirm Project';
             buttonDiv.appendChild(confirmButton);
 
-
-
             confirmButton.onclick = function () {
 
                 if (titleInput.value == "" && descriptionInput.value == "" && dateInput.value == "" && prioritySelect.value == "" && statusSelect.value == "") {
                     return;
                 } else {
-
                     const newObject = new Project(titleInput.value, descriptionInput.value, dateInput.value, prioritySelect.value, statusSelect.value);
-
                     window.localStorage.setItem(newObject.title, JSON.stringify(newObject));
 
-                    newProjectDiv.remove(); // Deleting form
-                    document.getElementById('projectDiv').remove(); // Removing elements that need to be updated;
-                    document.getElementById('todoSection').remove(); // Removing elements that need to be updated;
+                    newProjectDiv.remove(); 
+                    document.getElementById('projectDiv').remove(); 
+                    document.getElementById('todoSection').remove();
 
-                    projects(); // Calling the projects function - updated elements on screen
+                    projects(); 
                     newProject();
-                    editProject(); // Calling editProject function - so we may reuse it for further editing.
+                    editProject(); 
                     resetProjects();
                 }
             }

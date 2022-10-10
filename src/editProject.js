@@ -8,7 +8,6 @@ export default function editProject() {
         ...localStorage
     };
 
-
     var list = [];
 
     for (let i = 0; i < localStorage.length; i++) {
@@ -18,12 +17,11 @@ export default function editProject() {
         list.push(item);
     }
 
-
     const projectBoxes = document.querySelectorAll('.projectBox');
     for (let i = 0; i < projectBoxes.length; i++) {
 
-        const item = list[i]
-        const boxItem = projectBoxes[i]
+        const item = list[i];
+        const boxItem = projectBoxes[i];
         boxItem.id = item.title; // The ID is the object's title
 
         projectBoxes[i].onclick = function () {
@@ -31,8 +29,6 @@ export default function editProject() {
             if (document.getElementById('editingDiv') != null || document.getElementById('newProjectDiv')) {
                 return;
             } else {
-
-                // const editing = document.getElementById(boxID);
 
                 const editingDiv = document.createElement('div'); // Container that contains a form
                 editingDiv.id = 'editingDiv';
@@ -80,11 +76,11 @@ export default function editProject() {
 
                 const currentDate = document.createElement('label');
                 currentDate.textContent = list[i].dueDate;
-                currentDate.style.color = 'purple'
+                currentDate.style.color = 'purple';
 
                 const dateInput = document.createElement('input');
                 dateInput.style.width = '125px';
-                dateInput.type = 'date'
+                dateInput.type = 'date';
 
                 dateLi.appendChild(dateLabel);
                 dateLi.appendChild(currentDate);
@@ -98,7 +94,7 @@ export default function editProject() {
 
                 const currentPriority = document.createElement('label');
                 currentPriority.textContent = list[i].priority;
-                currentPriority.style.color = 'purple'
+                currentPriority.style.color = 'purple';
 
                 const prioritySelect = document.createElement('select');
                 prioritySelect.id = 'prioritySelect';
@@ -107,13 +103,13 @@ export default function editProject() {
                 const optionDefault = document.createElement('option');
                 optionDefault.value = "";
                 optionDefault.textContent = "";
-                prioritySelect.appendChild(optionDefault)
+                prioritySelect.appendChild(optionDefault);
 
 
                 const optionLow = document.createElement('option');
                 optionLow.value = "Low";
                 optionLow.textContent = 'Low'
-                prioritySelect.appendChild(optionLow)
+                prioritySelect.appendChild(optionLow);
 
 
                 const optionMedium = document.createElement('option');
@@ -148,13 +144,13 @@ export default function editProject() {
                 const statusDefault = document.createElement('option');
                 statusDefault.value = "";
                 statusDefault.textContent = "";
-                statusSelect.appendChild(statusDefault)
+                statusSelect.appendChild(statusDefault);
 
 
                 const statusNot = document.createElement('option');
                 statusNot.value = "Not Started";
                 statusNot.textContent = 'Not Started'
-                statusSelect.appendChild(statusNot)
+                statusSelect.appendChild(statusNot);
 
 
                 const statusProgress = document.createElement('option');
@@ -216,15 +212,15 @@ export default function editProject() {
                         window.localStorage.setItem(changedObject.title, JSON.stringify(changedObject));
                         newprojectList.push(changedObject);
 
-                        editingDiv.remove(); // Deleting form
+                        editingDiv.remove();
 
-                        document.getElementById('leftBar').removeChild(resetDiv); //Removing the reset div 
-                        document.getElementById('projectDiv').remove(); // Removing elements that need to be updated;
-                        document.getElementById('todoSection').remove(); // Removing elements that need to be updated;
+                        document.getElementById('leftBar').removeChild(resetDiv); 
+                        document.getElementById('projectDiv').remove(); 
+                        document.getElementById('todoSection').remove(); 
 
-                        projects(newprojectList); // Calling the projects function - updated elements on screen
+                        projects(newprojectList);
                         newProject();
-                        editProject(newprojectList); // Calling editProject function - so we may reuse it for further editing.
+                        editProject(newprojectList);
                         resetProjects();
                     }
                 }
@@ -250,21 +246,17 @@ export default function editProject() {
 
 
                 deleteButton.onclick = function () {
-                    const deleteTitle = list[i].title
-                    // this variable stores the right object title before removing it from our list
-                    //const newprojectList = testList.filter(Project => Project.title != testList[i].title);
-
+                    const deleteTitle = list[i].title;
 
                     window.localStorage.removeItem(deleteTitle);
 
-                    editingDiv.remove(); // Deleting form
-                    document.getElementById('projectDiv').remove(); // Removing elements that need to be updated;
-                    document.getElementById('todoSection').remove(); // Removing elements that need to be updated;
+                    editingDiv.remove(); 
+                    document.getElementById('projectDiv').remove(); 
+                    document.getElementById('todoSection').remove(); 
 
-                    projects(); // Calling the projects function - updated elements on screen
-
+                    projects(); 
                     newProject();
-                    editProject(); // Calling editProject function - so we may reuse it for further editing.
+                    editProject(); 
                     resetProjects();
                 }
             }
