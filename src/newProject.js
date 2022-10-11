@@ -147,7 +147,7 @@ export default function newProject() {
                 if (titleInput.value == "" && descriptionInput.value == "" && dateInput.value == "" && prioritySelect.value == "" && statusSelect.value == "") {
                     return;
                 } else {
-                    const newObject = new Project(titleInput.value, descriptionInput.value, dateInput.value, prioritySelect.value, statusSelect.value);
+                    const newObject = new Project(titleInput.value, descriptionInput.value, dateInput.value, prioritySelect.value, statusSelect.value, []);
                     window.localStorage.setItem(newObject.title, JSON.stringify(newObject));
 
                     newProjectDiv.remove(); 

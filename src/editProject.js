@@ -1,6 +1,7 @@
 import projects from './projects.js';
 import newProject from './newProject.js';
 import resetProjects from './resetProjects.js';
+import Todo from './editTodo.js'
 
 export default function editProject() {
 
@@ -288,6 +289,76 @@ export default function editProject() {
                 newtoDo.textContent = "Add to do";
                 toDoDiv.appendChild(newtoDo);
 
+                const currentToDoDiv = document.createElement('div');
+                currentToDoDiv.id = 'currentToDoDiv';
+                toDoDiv.appendChild(currentToDoDiv);
+
+                let currentToDolist = list[i].todo;
+
+                if (currentToDolist.length != 0) {
+
+                    const toDoBar = document.createElement('box');
+                    toDoBar.id = 'toDoBar';
+                    currentToDoDiv.appendChild(toDoBar);
+
+                    const barTitle = document.createElement('span');
+                    barTitle.id = 'barTitle';
+                    barTitle.textContent =  "Title"
+                    toDoBar.appendChild(barTitle);
+
+                    const barDescription = document.createElement('span');
+                    barDescription.id = 'barDescription';
+                    barDescription.textContent = "Description"
+                    toDoBar.appendChild(barDescription);
+
+                    const barStatus = document.createElement('span');
+                    barStatus.id = 'barStatus';
+                    barStatus.textContent = "Status"
+                    toDoBar.appendChild(barStatus);
+
+                    for (let i = 0; i < currentToDolist.length; i++) {
+
+                        const toDoBox = document.createElement('box');
+                        toDoBox.id = 'toDoBox';
+                        currentToDoDiv.appendChild(toDoBox);
+
+                        const toDoTitle = document.createElement('span');
+                        toDoTitle.id = 'toDoTitle';
+                        toDoTitle.textContent = currentToDolist[i].title
+                        toDoBox.appendChild(toDoTitle);
+
+                        const toDoDescription = document.createElement('p');
+                        toDoDescription.id = 'toDoDescription';
+                        toDoDescription.textContent = currentToDolist[i].description
+                        toDoBox.appendChild(toDoDescription);
+
+                        const toDoStatus = document.createElement('span');
+                        toDoStatus.id = 'toDoStatus';
+                        toDoStatus.textContent = currentToDolist[i].status
+                        toDoBox.appendChild(toDoStatus);
+                    }
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 newtoDo.onclick = function () {
 
                     if (document.getElementById('todoForm') != null) {
@@ -361,6 +432,36 @@ export default function editProject() {
                         toDoButton.textContent = "Confirm Todo";
                         toDoUL.appendChild(toDoButton)
 
+                        toDoButton.onclick = function () {
+
+                            if (toDoTitleInput.value == "" || toDoDescriptionInput.value == "" || toDoStatusSelect.value == "") {
+                                return;
+                            } else {
+
+                                const todoList = list[i].todo
+
+                                const newTodoObject = new Todo(toDoTitleInput.value, toDoDescriptionInput.value, toDoStatusSelect.value)
+
+                                todoList.push(newTodoObject);
+
+                                window.localStorage.setItem(list[i].title, JSON.stringify(list[i]));
+
+                                console.log(list[i]);
+                                // window.localStorage.setItem(changedObject.title, JSON.stringify(changedObject));
+                                // newprojectList.push(changedObject);
+
+                                editingDiv.remove();
+
+                                document.getElementById('projectDiv').remove();
+                                document.getElementById('todoSection').remove();
+                                document.getElementById('fullProjectDiv').remove();
+
+                                projects();
+                                newProject();
+                                editProject();
+                                resetProjects();
+                            }
+                        }
                     }
                 }
             }

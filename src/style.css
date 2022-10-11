@@ -262,10 +262,11 @@ body {
     display: flex;
     flex-direction: column;
     height: 80px;
-    gap:15px
+    gap: 15px
 }
 
-#newtoDo, #showDetails {
+#newtoDo,
+#showDetails {
     font-size: 0.75rem;
     background-color: grey;
     box-shadow: 0px 15px 10px -15px #111;
@@ -278,7 +279,7 @@ body {
     cursor: pointer;
 }
 
-#toDoButton{
+#toDoButton {
     font-size: 0.75rem;
     background-color: grey;
     box-shadow: 0px 15px 10px -15px #111;
@@ -314,7 +315,8 @@ ul {
     display: flex;
     flex-direction: column;
     padding: 2%;
-    margin: 0px;;
+    margin: 0px;
+    ;
     gap: 15px;
 }
 
@@ -338,5 +340,69 @@ input,
 select,
 option {
     height: 20px;
+
+}
+
+#currentToDoDiv {
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    gap: 5px;
+}
+
+#toDoBar {
+    display: grid;
+    grid-template: auto / 100px 150px 80px;
+    font-size: 0.75rem;
+    align-items: center;
+    color: rgb(38, 119, 81);
+}
+
+#barTitle {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    font-weight: 600;
+}
+
+#barDescription {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    font-weight: 600;
+}
+
+#barStatus {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    font-weight: 600;
+    text-align: center;
+}
+
+
+#toDoBox {
+    display: grid;
+    grid-template: auto / 100px 150px 80px;
+    font-size: 0.75rem;
+    align-items: center;
+
+}
+
+#toDoTitle {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    font-weight: 600;
+    text-justify: inter-word;
+
+}
+
+#toDoDescription {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    text-justify: inter-word;
+}
+
+#toDoStatus {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    text-align: center;
 
 }
