@@ -151,6 +151,7 @@ body {
     align-items: center;
     align-content: center;
     margin: 2%;
+    margin-right: 4%;
     gap: 15px;
 }
 
@@ -277,6 +278,19 @@ body {
     cursor: pointer;
 }
 
+#toDoButton{
+    font-size: 0.75rem;
+    background-color: grey;
+    box-shadow: 0px 15px 10px -15px #111;
+    color: white;
+    padding: 2%;
+    border-width: 8px;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    width: max-content;
+    cursor: pointer;
+}
+
 #todoForm {
     display: flex;
     flex-direction: column;
@@ -285,12 +299,11 @@ body {
     min-width: 350px;
     max-width: 650px;
     min-height: 94px;
-    height: max-content;
+    height: 325px;
     border-left: solid rgb(38, 119, 81);
     background-color: white;
     box-shadow: 0px 15px 10px -15px #111;
     padding: 2%;
-    padding-top: 2%;
     border-width: 8px;
     border-radius: 10px;
     font-family: 'Roboto', sans-serif;
@@ -300,6 +313,8 @@ body {
 ul {
     display: flex;
     flex-direction: column;
+    padding: 2%;
+    margin: 0px;;
     gap: 15px;
 }
 

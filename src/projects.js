@@ -27,7 +27,7 @@ export default function projects() {
     todoSection.id = 'todoSection';
     mainSection.appendChild(todoSection);
 
-    var list = [];
+    let list = [];
 
     let items = { // Retrieving the local Storage everytime the page is loaded
         ...localStorage
