@@ -2,8 +2,8 @@
 
 body {
     margin: 0;
-    min-height: 100vh;
-    background-color: rgb(209, 209, 209);
+    min-height: 110vh;
+    background-color: #28272A;
 }
 
 .header {
@@ -11,7 +11,7 @@ body {
     flex-direction: row;
     align-items: center;
     height: 20px;
-    background-color: rgb(38, 119, 81);
+    background-color: #28272A;
     padding: 2%;
     justify-content: space-between;
 }
@@ -25,15 +25,14 @@ body {
 #mainSection {
     display: flex;
     flex-direction: row;
+    margin-bottom: 15vh;
 }
 
 .leftBar {
     display: flex;
     flex-direction: column;
-    background-color: rgb(38, 119, 81);
-    min-height: 100vh;
-    min-width: fit-content;
-    width: fit-content;
+    background-color: #28272A;
+    width: 20%;
     max-width: 250px;
     padding: 2%;
     padding-top: 1%;
@@ -55,7 +54,7 @@ body {
 
 .userName {
     font-family: 'Roboto', sans-serif;
-    color: black;
+    color: white;
     font-size: 1rem;
 }
 
@@ -89,7 +88,7 @@ body {
 }
 
 .newProject:hover {
-    color: orange !important;
+    color: #2E5041 !important;
 }
 
 .myProjects {
@@ -103,14 +102,15 @@ body {
     font-family: 'Roboto', sans-serif;
     font-size: 0.95rem;
     color: white;
+    cursor: pointer;
 }
 
 #todoSection {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     padding: 2%;
-    width: 100%;
+    width: 80%;
     height: min-content;
     gap: 30px;
     justify-content: center;
@@ -124,12 +124,13 @@ body {
     border-radius: 0px;
     align-self: start;
     text-align: center;
-    padding: 1%;
-    border-left: solid rgb(38, 119, 81);
+    margin: 2%;
+    padding: 2%;
+    border-left: solid rgb(141, 167, 47);
+    ;
     border-width: 8px;
     border-radius: 10px;
-    min-width: 200px;
-    width: 300px;
+    width: 35vw;
     min-height: 100px;
     height: 15vh;
     font-size: 1rem;
@@ -137,12 +138,6 @@ body {
     box-shadow: 0px 15px 10px -15px #111;
     font-family: 'Roboto', sans-serif;
     font-weight: 570;
-    cursor: pointer;
-}
-
-.projectBox:hover {
-    background-color: rgb(38, 119, 81) !important;
-    color: white !important;
 }
 
 #fullProjectDiv {
@@ -161,10 +156,9 @@ body {
     flex-direction: column;
     align-self: flex-start;
     gap: 5px;
-    min-width: 350px;
-    max-width: 650px;
+    width: 80%;
     height: max-content;
-    border-left: solid rgb(38, 119, 81);
+    border-left: solid rgb(141, 167, 47);
     background-color: white;
     box-shadow: 0px 15px 10px -15px #111;
     padding: 2%;
@@ -174,7 +168,14 @@ body {
     font-weight: 570;
 }
 
-#editingForm,
+#editingForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+
+
 #newForm {
     display: flex;
     flex-direction: column;
@@ -186,55 +187,63 @@ body {
     flex-direction: row;
     align-items: center;
     gap: 5px;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
-    height: max-content;
+    height: inherit;
 }
 
 .editButton {
     display: flex;
-    width: 150px;
-    height: 40px;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 0.9rem;
-    justify-content: center;
     align-items: center;
-    background-color: rgb(12, 130, 84);
+    font-size: 0.75rem;
+    background-color: rgb(54, 84, 57);
+    box-shadow: 0px 15px 10px -15px #111;
     color: white;
+    padding: 2%;
+    border-width: 8px;
+    border-radius: 10px;
+    justify-content: center;
+    text-align: center;
     font-family: 'Roboto', sans-serif;
+    width: 120px;
+    height: 0.25vh;
     cursor: pointer;
 }
 
 .cancelButton {
     display: flex;
-    width: 150px;
-    height: 40px;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 0.9rem;
-    justify-content: center;
     align-items: center;
-    border-radius: 8px;
-    background-color: yellow;
+    font-size: 0.75rem;
+    background-color: rgb(227, 239, 56);
+    box-shadow: 0px 15px 10px -15px #111;
+    color: black;
+    justify-content: center;
+    text-align: center;
+    padding: 2%;
+    border-width: 8px;
+    border-radius: 10px;
     font-family: 'Roboto', sans-serif;
+    width: 120px;
+    height: 0.25vh;
     cursor: pointer;
 }
 
-
 .deleteButton {
     display: flex;
-    width: 150px;
-    height: 40px;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 0.9rem;
-    justify-content: center;
     align-items: center;
-    border-radius: 8px;
-    background-color: rgb(63, 0, 0);
+    font-size: 0.75rem;
+    background-color: rgb(84, 54, 54);
+    box-shadow: 0px 15px 10px -15px #111;
     color: white;
+    padding: 2%;
+    justify-content: center;
+    text-align: center;
+    border-width: 8px;
+    border-radius: 10px;
     font-family: 'Roboto', sans-serif;
+    width: max-content;
+    width: 120px;
+    height: 0.25vh;
     cursor: pointer;
 }
 
@@ -243,11 +252,10 @@ body {
     flex-direction: column;
     align-self: flex-start;
     gap: 10px;
-    min-width: 350px;
-    max-width: 650px;
-    min-height: 94px;
+    width: 80%;
+    /* min-height: 94px; */
     height: max-content;
-    border-left: solid rgb(38, 119, 81);
+    border-left: solid rgb(141, 167, 47);
     background-color: white;
     box-shadow: 0px 15px 10px -15px #111;
     padding: 2%;
@@ -267,6 +275,8 @@ body {
 
 #newtoDo,
 #showDetails {
+    display: flex;
+    align-items: center;
     font-size: 0.75rem;
     background-color: grey;
     box-shadow: 0px 15px 10px -15px #111;
@@ -275,11 +285,26 @@ body {
     border-width: 8px;
     border-radius: 10px;
     font-family: 'Roboto', sans-serif;
-    width: max-content;
+    width: fit-content;
+    height: 0.5vh;
+    max-height: 25px;
     cursor: pointer;
+}
+
+#todoButtonDiv {
+    grid-row-start: 3;
+    grid-row-end: 4;
+    grid-column-start: 2;
+    grid-column-end: 3;
 }
 
 #toDoButton {
+    grid-row-start: 3;
+    grid-row-end: 4;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    display: flex;
+    align-items: center;
     font-size: 0.75rem;
     background-color: grey;
     box-shadow: 0px 15px 10px -15px #111;
@@ -292,32 +317,113 @@ body {
     cursor: pointer;
 }
 
-#todoForm {
+#todoButtonDiv {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap:4px;
+    flex-wrap: wrap;
+
+}
+
+#editToDoButton{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    height: 25px;
+    font-size: 0.75rem;
+    background-color: grey;
+    box-shadow: 0px 15px 10px -15px #111;
+    color: white;
+    padding: 2%;
+    border-width: 8px;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    width: 110px;
+    cursor: pointer;
+}
+
+#deleteToDoButton{    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    height: 25px;
+    font-size: 0.75rem;
+    background-color: rgb(84, 54, 54);
+    box-shadow: 0px 15px 10px -15px #111;
+    color: white;
+    padding: 2%;
+    border-width: 8px;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    width: 110px;
+    cursor: pointer;}
+
+#todoForm,
+#editTodoForm {
     display: flex;
     flex-direction: column;
     align-self: flex-start;
     gap: 10px;
-    min-width: 350px;
-    max-width: 650px;
-    min-height: 94px;
-    height: 325px;
-    border-left: solid rgb(38, 119, 81);
+    width: 80%;
+    border-left: solid rgb(141, 167, 47);
     background-color: white;
     box-shadow: 0px 15px 10px -15px #111;
     padding: 2%;
+    padding-bottom: 4%;
     border-width: 8px;
     border-radius: 10px;
     font-family: 'Roboto', sans-serif;
     font-weight: 570;
 }
 
-ul {
-    display: flex;
-    flex-direction: column;
-    padding: 2%;
-    margin: 0px;
-    ;
+#formUL {
+    display: grid;
+    grid-template: auto auto auto / 50% 50%;
+    width: 100%;
+    padding-left: 1.25%;
     gap: 15px;
+    align-items: flex-start;
+}
+
+#toDoUL {
+    display: grid;
+    grid-template: 10% 45% 45%/ 50% 50%;
+    gap: 15px;
+    padding-left: 1.25%;
+    align-items: center;
+    justify-content: center;
+    justify-items: start;
+}
+
+#toDoTitle {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+#toDoTitleLi {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+#toDoDescriptionLi {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 2;
+    grid-column-end: 3;
+
+}
+
+#toDoStatusLi {
+    grid-row-start: 3;
+    grid-row-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 2;
 }
 
 li {
@@ -325,22 +431,19 @@ li {
     display: flex;
     flex-direction: column;
     gap: 10px;
-
 }
 
 label,
 input {
-    /* display: block; */
     font-size: 0.9rem;
     font-family: 'Roboto', sans-serif;
-    width: 200px;
+    width: 15vw;
 }
 
 input,
 select,
 option {
     height: 20px;
-
 }
 
 #currentToDoDiv {
@@ -348,20 +451,23 @@ option {
     flex-direction: column;
     padding: 2%;
     gap: 5px;
+    height: max-content;
 }
 
 #toDoBar {
     display: grid;
-    grid-template: auto / 100px 150px 80px;
-    font-size: 0.75rem;
+    grid-template: auto / 17.5% 55% 17.5% 10%;
+    font-size: 1.35vw;
     align-items: center;
-    color: rgb(38, 119, 81);
+    justify-items: stretch;
+    color: rgb(141, 167, 47);
 }
 
 #barTitle {
     grid-column-start: 1;
     grid-column-end: 2;
     font-weight: 600;
+    text-align: center;
 }
 
 #barDescription {
@@ -377,21 +483,21 @@ option {
     text-align: center;
 }
 
-
 #toDoBox {
     display: grid;
-    grid-template: auto / 100px 150px 80px;
-    font-size: 0.75rem;
+    grid-template: auto / 17.5% 55% 17.5% 10%;
+    font-size: 1.05vw;
     align-items: center;
-
 }
 
 #toDoTitle {
+    display: flex;
     grid-column-start: 1;
     grid-column-end: 2;
     font-weight: 600;
-    text-justify: inter-word;
-
+    text-align: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 #toDoDescription {
@@ -404,5 +510,4 @@ option {
     grid-column-start: 3;
     grid-column-end: 4;
     text-align: center;
-
 }

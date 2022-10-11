@@ -45,33 +45,5 @@ export default function projects() {
         projectTitle.className = 'projectTitle';
         projectTitle.textContent = list[i].title;
         projectDiv.appendChild(projectTitle);
-
-        const box = document.createElement('box');
-
-        box.className = 'projectBox';
-        box.id = list[i].title;
-
-        const boxTitle = document.createElement('span');
-        boxTitle.textContent = "Title: " + list[i].title;
-
-        const boxDescription = document.createElement('span');
-        boxDescription.textContent = "Description: " + list[i].description;
-
-        const boxDate = document.createElement('span');
-        boxDate.textContent = "Due date: " + list[i].dueDate;
-
-        const boxPriority = document.createElement('span');
-        boxPriority.textContent = "Priority: " + list[i].priority;
-
-        const boxStatus = document.createElement('span');
-        boxStatus.textContent = "Status: " + list[i].status;
-
-        const boxContent = [boxTitle, boxDescription, boxDate, boxPriority,boxStatus];
-
-        for (let i = 0; i < boxContent.length; i++) {
-            box.appendChild(boxContent[i]);
-        }
-
-        todoSection.appendChild(box);
     }
 }
