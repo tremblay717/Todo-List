@@ -20,10 +20,6 @@ export default function editProject() {
 
     for (let i = 0; i < projectBoxes.length; i++) {
 
-        const item = list[i];
-        const boxItem = projectBoxes[i];
-        boxItem.id = item.title; // The ID is the object's title
-
         projectBoxes[i].onclick = function () {
 
             if (document.getElementById('fullProjectDiv') != null || document.getElementById('newProjectDiv')) {
@@ -222,23 +218,17 @@ export default function editProject() {
                                 list[i].status = statusSelect.value;
                             }
 
-                            const changedObject = list[i];
+                            // const changedObject = list[i];
 
-                            const newprojectList = list.filter(Project => Project.title != list[i].title);
+                            // const newprojectList = list.filter(Project => Project.title != list[i].title);
 
-                            window.localStorage.setItem(changedObject.title, JSON.stringify(changedObject));
-                            newprojectList.push(changedObject);
+                            window.localStorage.setItem(list[i].title, JSON.stringify(list[i]));
+                            
+                            descriptionInput.placeholder = list[i].description;
+                            
 
-                            editingDiv.remove();
 
-                            document.getElementById('projectDiv').remove();
-                            document.getElementById('todoSection').remove();
-                            document.getElementById('fullProjectDiv').remove();
 
-                            projects(newprojectList);
-                            newProject();
-                            editProject(newprojectList);
-                            resetProjects();
                         }
                     }
 
@@ -403,7 +393,7 @@ export default function editProject() {
 
                             const toDoStatusNot = document.createElement('option');
                             toDoStatusNot.value = "Not Started";
-                            toDoStatusNot.textContent = 'Not Started'
+                            toDoStatusNot.textContent = 'Not Started';
                             toDoStatusSelect.appendChild(toDoStatusNot);
 
                             const toDoStatusProgress = document.createElement('option');
@@ -421,23 +411,21 @@ export default function editProject() {
                             toDoUL.appendChild(toDoStatusLi);
 
                             const todoButtonDiv = document.createElement('div');
-                            todoButtonDiv.id = 'todoButtonDiv'
+                            todoButtonDiv.id = 'todoButtonDiv';
                             toDoUL.appendChild(todoButtonDiv);
-
 
                             const editToDoButton = document.createElement('span');
                             editToDoButton.id = 'editToDoButton';
                             editToDoButton.textContent = "Confirm Change(s)";
                             todoButtonDiv.appendChild(editToDoButton);
 
-                            console.log(currentToDolist)
+                            console.log(currentToDolist);
 
                             editToDoButton.onclick = function () {
 
                                 if (toDoTitleInput.value == "" && toDoDescriptionInput.value == "" && toDoStatusSelect.value == "") {
                                     return;
                                 } else {
-
                                     if (toDoTitleInput.value != "") {
                                         currentToDolist[j].title = toDoTitleInput.value;
                                     }
@@ -445,24 +433,14 @@ export default function editProject() {
                                         currentToDolist[j].description = toDoDescriptionInput.value;
                                     }
                                     if (toDoStatusSelect.value != "") {
-
                                         currentToDolist[j].status = toDoStatusSelect.value;
                                     }
 
-                                    const changedObject = list[i];
+                                    list[i].todo = currentToDolist;
 
-                                    changedObject.todo = currentToDolist;
-
-
-
-                                    window.localStorage.setItem(changedObject.title, JSON.stringify(changedObject));
-
-                                    toDoStatus.textContent = currentToDolist[j].status
-
-
+                                    window.localStorage.setItem(list[i].title, JSON.stringify(list[i]));
+                                    toDoStatus.textContent = currentToDolist[j].status;
                                     document.getElementById('editTodoForm').remove();
-                                    // document.getElementById('todoSection').remove();
-                                    // document.getElementById('fullProjectDiv').remove();
                                 }
                             }
 
