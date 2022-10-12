@@ -39,6 +39,10 @@ export default function basicHtml() {
     leftBar.className = 'leftBar';
     mainSection.appendChild(leftBar);
 
+    // 2nd part is a div taking 75% of the page's width
+    const todoSection = document.createElement('div');
+    todoSection.id = 'todoSection';
+    mainSection.appendChild(todoSection);
     const resetDiv = document.createElement('div');
     resetDiv.id = 'resetDiv';
     document.getElementById('leftBar').appendChild(resetDiv);

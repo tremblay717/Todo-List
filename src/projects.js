@@ -22,11 +22,6 @@ export default function projects() {
     myProjects.textContent = 'My Projects';
     projectDiv.appendChild(myProjects);
 
-    // 2nd part is a div taking 75% of the page's width
-    const todoSection = document.createElement('div');
-    todoSection.id = 'todoSection';
-    mainSection.appendChild(todoSection);
-
     let list = [];
 
     let items = { // Retrieving the local Storage everytime the page is loaded

@@ -64,6 +64,13 @@ function editProject() {
     showDetail.textContent = "Show Project details";
     projectDisplay.appendChild(showDetail);
     showDetail.addEventListener('click', showDetails);
+
+    const addProject = document.getElementById('newProject');
+    addProject.addEventListener('click', newProject);
+
+    const reset = document.getElementById('resetProjects');
+    reset.addEventListener('click', resetProjects);
+
 }
 
 function showDetails() {
@@ -223,6 +230,12 @@ function showDetails() {
         deleteButton.addEventListener('click', deleteProject);
         buttonDiv.appendChild(deleteButton);
     }
+
+    const addProject = document.getElementById('newProject');
+    addProject.addEventListener('click', newProject);
+
+    const reset = document.getElementById('resetProjects');
+    reset.addEventListener('click', resetProjects);
 }
 
 function editDetails() {
@@ -284,6 +297,11 @@ function editDetails() {
         currentStatus.textContent = "";
         statusSelect.value = "";
     }
+    const addProject = document.getElementById('newProject');
+    addProject.addEventListener('click', newProject);
+
+    const reset = document.getElementById('resetProjects');
+    reset.addEventListener('click', resetProjects);
 }
 
 function deleteProject() {
@@ -294,6 +312,12 @@ function deleteProject() {
 
     document.getElementById(deleteTitle).remove();
 
+    const addProject = document.getElementById('newProject');
+    addProject.addEventListener('click', newProject);
+
+    const reset = document.getElementById('resetProjects');
+    reset.addEventListener('click', resetProjects);
+
 }
 
 const addProject = document.getElementById('newProject');
@@ -301,164 +325,154 @@ addProject.addEventListener('click', newProject);
 
 function newProject() {
 
-
-    if (document.getElementById('fullProjectDiv') != null) {
-
-        document.getElementById('fullProjectDiv').remove();
-    }
-
-    if (document.getElementById('newProjectDiv') != null || document.getElementById('editingDiv') != null) {
+    if (document.getElementById('newProjectDiv') != null) {
         return;
-
-
-
-
-    } else {
-
-
-        if (document.getElementById('editingDiv') != null) {
-            document.getElementById('editingDiv').remove();
-        }
-
-
-        const newProjectDiv = document.createElement('div'); // Container that contains a form
-        newProjectDiv.id = 'newProjectDiv';
-        document.getElementById('todoSection').appendChild(newProjectDiv);
-
-        const newForm = document.createElement('form');
-        newForm.id = 'newForm';
-        newProjectDiv.appendChild(newForm);
-
-        const projectTitle = document.createElement('span');
-        projectTitle.textContent = "Add a new Project";
-        newForm.appendChild(projectTitle);
-
-        const formUL = document.createElement('ul');
-        formUL.id = 'newProjectUl';
-        newForm.appendChild(formUL);
-
-        const titleLi = document.createElement('li');
-
-        const titleLabel = document.createElement('label');
-        titleLabel.textContent = " Project Title:";
-
-        const titleInput = document.createElement('input');
-        titleInput.id = 'titleInput';
-        titleInput.placeholder = 'Computer';
-
-        titleLi.appendChild(titleLabel);
-        titleLi.appendChild(titleInput);
-        formUL.appendChild(titleLi);
-
-        const descriptionLi = document.createElement('li');
-
-        const descriptionLabel = document.createElement('label');
-        descriptionLabel.textContent = "Project Description:";
-
-        const descriptionInput = document.createElement('input');
-        descriptionInput.id = 'descriptionInput';
-        descriptionInput.placeholder = "Buy a new computer";
-
-        descriptionLi.appendChild(descriptionLabel);
-        descriptionLi.appendChild(descriptionInput);
-        formUL.appendChild(descriptionLi);
-
-        const dateLi = document.createElement('li');
-
-        const dateLabel = document.createElement('label');
-        dateLabel.textContent = "Project Due Date:";
-
-        const dateInput = document.createElement('input');
-        dateInput.id = 'dateInput';
-        dateInput.style.width = '125px';
-        dateInput.type = 'date';
-
-        dateLi.appendChild(dateLabel);
-        dateLi.appendChild(dateInput);
-        formUL.appendChild(dateLi);
-
-        const priorityLi = document.createElement('li');
-
-        const priorityLabel = document.createElement('label');
-        priorityLabel.textContent = "Project Priority:";
-
-        const prioritySelect = document.createElement('select');
-        prioritySelect.id = 'prioritySelect';
-        prioritySelect.style.width = '130px';
-
-        const optionLow = document.createElement('option');
-        optionLow.value = "Low";
-        optionLow.textContent = 'Low'
-        prioritySelect.appendChild(optionLow)
-
-        const optionMedium = document.createElement('option');
-        optionMedium.value = "Medium";
-        optionMedium.textContent = "Medium";
-        prioritySelect.appendChild(optionMedium);
-
-        const optionHigh = document.createElement('option');
-        optionHigh.value = "High";
-        optionHigh.textContent = "High";
-        prioritySelect.appendChild(optionHigh);
-
-        priorityLi.appendChild(priorityLabel);
-        priorityLi.appendChild(prioritySelect);
-        formUL.appendChild(priorityLi);
-
-        const statusLi = document.createElement('li');
-
-        const statusLabel = document.createElement('label');
-        statusLabel.textContent = "Project Status:";
-
-        const statusSelect = document.createElement('select');
-        statusSelect.id = 'statusSelect';
-        statusSelect.style.width = '130px';
-
-        const statusDefault = document.createElement('option');
-        statusDefault.value = "";
-        statusDefault.textContent = "";
-        statusSelect.appendChild(statusDefault);
-
-        const statusNot = document.createElement('option');
-        statusNot.value = "Not Started";
-        statusNot.textContent = 'Not Started';
-        statusSelect.appendChild(statusNot);
-
-        const statusProgress = document.createElement('option');
-        statusProgress.value = "In Progress";
-        statusProgress.textContent = "In Progress";
-        statusSelect.appendChild(statusProgress);
-
-        const statusDone = document.createElement('option');
-        statusDone.value = "Done";
-        statusDone.textContent = "Done";
-        statusSelect.appendChild(statusDone);
-
-        statusLi.appendChild(statusLabel);
-        statusLi.appendChild(statusSelect);
-        formUL.appendChild(statusLi);
-
-        // Div to hold our button - Push or Cancel changes
-        const buttonDiv = document.createElement('div');
-        buttonDiv.className = 'buttonDiv';
-        newForm.appendChild(buttonDiv);
-
-        const confirmButton = document.createElement('div');
-        confirmButton.className = 'editButton';
-        confirmButton.addEventListener('click', confirmButtonNew);
-
-        confirmButton.textContent = 'Confirm Project';
-        confirmButton.id = confirmButton;
-        buttonDiv.appendChild(confirmButton);
-
-        const cancelButton = document.createElement('div');
-        cancelButton.className = 'cancelButton';
-        cancelButton.id = 'cancelButton';
-        cancelButton.textContent = 'Cancel';
-        cancelButton.addEventListener('click', cancelProject)
-        buttonDiv.appendChild(cancelButton);
     }
+
+    const newProjectDiv = document.createElement('div'); // Container that contains a form
+    newProjectDiv.id = 'newProjectDiv';
+    document.getElementById('todoSection').appendChild(newProjectDiv);
+
+    const newForm = document.createElement('form');
+    newForm.id = 'newForm';
+    newProjectDiv.appendChild(newForm);
+
+    const projectTitle = document.createElement('span');
+    projectTitle.textContent = "Add a new Project";
+    newForm.appendChild(projectTitle);
+
+    const formUL = document.createElement('ul');
+    formUL.id = 'newProjectUl';
+    newForm.appendChild(formUL);
+
+    const titleLi = document.createElement('li');
+
+    const titleLabel = document.createElement('label');
+    titleLabel.textContent = " Project Title:";
+
+    const titleInput = document.createElement('input');
+    titleInput.id = 'titleInput';
+    titleInput.placeholder = 'Computer';
+
+    titleLi.appendChild(titleLabel);
+    titleLi.appendChild(titleInput);
+    formUL.appendChild(titleLi);
+
+    const descriptionLi = document.createElement('li');
+
+    const descriptionLabel = document.createElement('label');
+    descriptionLabel.textContent = "Project Description:";
+
+    const descriptionInput = document.createElement('input');
+    descriptionInput.id = 'descriptionInput';
+    descriptionInput.placeholder = "Buy a new computer";
+
+    descriptionLi.appendChild(descriptionLabel);
+    descriptionLi.appendChild(descriptionInput);
+    formUL.appendChild(descriptionLi);
+
+    const dateLi = document.createElement('li');
+
+    const dateLabel = document.createElement('label');
+    dateLabel.textContent = "Project Due Date:";
+
+    const dateInput = document.createElement('input');
+    dateInput.id = 'dateInput';
+    dateInput.style.width = '125px';
+    dateInput.type = 'date';
+
+    dateLi.appendChild(dateLabel);
+    dateLi.appendChild(dateInput);
+    formUL.appendChild(dateLi);
+
+    const priorityLi = document.createElement('li');
+
+    const priorityLabel = document.createElement('label');
+    priorityLabel.textContent = "Project Priority:";
+
+    const prioritySelect = document.createElement('select');
+    prioritySelect.id = 'prioritySelect';
+    prioritySelect.style.width = '130px';
+
+    const optionLow = document.createElement('option');
+    optionLow.value = "Low";
+    optionLow.textContent = 'Low'
+    prioritySelect.appendChild(optionLow)
+
+    const optionMedium = document.createElement('option');
+    optionMedium.value = "Medium";
+    optionMedium.textContent = "Medium";
+    prioritySelect.appendChild(optionMedium);
+
+    const optionHigh = document.createElement('option');
+    optionHigh.value = "High";
+    optionHigh.textContent = "High";
+    prioritySelect.appendChild(optionHigh);
+
+    priorityLi.appendChild(priorityLabel);
+    priorityLi.appendChild(prioritySelect);
+    formUL.appendChild(priorityLi);
+
+    const statusLi = document.createElement('li');
+
+    const statusLabel = document.createElement('label');
+    statusLabel.textContent = "Project Status:";
+
+    const statusSelect = document.createElement('select');
+    statusSelect.id = 'statusSelect';
+    statusSelect.style.width = '130px';
+
+    const statusDefault = document.createElement('option');
+    statusDefault.value = "";
+    statusDefault.textContent = "";
+    statusSelect.appendChild(statusDefault);
+
+    const statusNot = document.createElement('option');
+    statusNot.value = "Not Started";
+    statusNot.textContent = 'Not Started';
+    statusSelect.appendChild(statusNot);
+
+    const statusProgress = document.createElement('option');
+    statusProgress.value = "In Progress";
+    statusProgress.textContent = "In Progress";
+    statusSelect.appendChild(statusProgress);
+
+    const statusDone = document.createElement('option');
+    statusDone.value = "Done";
+    statusDone.textContent = "Done";
+    statusSelect.appendChild(statusDone);
+
+    statusLi.appendChild(statusLabel);
+    statusLi.appendChild(statusSelect);
+    formUL.appendChild(statusLi);
+
+    // Div to hold our button - Push or Cancel changes
+    const buttonDiv = document.createElement('div');
+    buttonDiv.className = 'buttonDiv';
+    newForm.appendChild(buttonDiv);
+
+    const confirmButton = document.createElement('div');
+    confirmButton.className = 'editButton';
+    confirmButton.addEventListener('click', confirmButtonNew);
+
+    confirmButton.textContent = 'Confirm Project';
+    confirmButton.id = confirmButton;
+    buttonDiv.appendChild(confirmButton);
+
+    const cancelButton = document.createElement('div');
+    cancelButton.className = 'cancelButton';
+    cancelButton.id = 'cancelButton';
+    cancelButton.textContent = 'Cancel';
+    cancelButton.addEventListener('click', cancelProject)
+    buttonDiv.appendChild(cancelButton);
+
+    const addProject = document.getElementById('newProject');
+    addProject.addEventListener('click', newProject);
+
+    const reset = document.getElementById('resetProjects');
+    reset.addEventListener('click', resetProjects);
 }
+
 
 function confirmButtonNew() {
     const titleInput = document.getElementById('titleInput');
@@ -486,13 +500,15 @@ function confirmButtonNew() {
 
 function cancelProject() {
     document.getElementById('newProjectDiv').remove();
+
+
+
 }
 
 const reset = document.getElementById('resetProjects');
 reset.addEventListener('click', resetProjects);
 
 function resetProjects() {
-
 
     //Creating a few random projects to display it on our screen
     const home = new Project('Home', 'Renovating my Home', '2023-12-31', 'Low', 'Not Started', []);
@@ -517,14 +533,19 @@ function resetProjects() {
 
     }
 
-    document.getElementById('projectDiv').remove(); // Removing elements that need to be updated;
-    document.getElementById('todoSection').remove(); // Removing elements that need to be updated;
+    // document.getElementById('projectDiv').remove(); // Removing elements that need to be updated;
+    // document.getElementById('todoSection').remove(); // Removing elements that need to be updated;
 
-    if (document.getElementById('fullProjectDiv') != null) {
-        document.getElementById('fullProjectDiv').remove();
+    // if (document.getElementById('fullProjectDiv') != null) {
+    //     document.getElementById('fullProjectDiv').remove();
+    // }
+
+    while (document.body.firstChild) {
+        document.body.removeChild(document.body.lastChild)
     }
 
-    projects();
+    basicHtml(); //Displaying the basic html template through a function call
+    projects(); // Populating the left Bar
 
     items = { // Retrieving the local Storage everytime the page is loaded
         ...localStorage
@@ -546,8 +567,13 @@ function resetProjects() {
         projectBoxes[i].addEventListener('click', myTodo, false);
     }
 
-    currentObject = "";
+    const addProject = document.getElementById('newProject');
+    addProject.addEventListener('click', newProject);
 
+    const reset = document.getElementById('resetProjects');
+    reset.addEventListener('click', resetProjects);
+
+    currentObject = "";
 }
 
 
@@ -709,6 +735,12 @@ function createTodo() {
     toDoButton.addEventListener('click', generateToDo);
     toDoUL.appendChild(toDoButton);
 
+    const addProject = document.getElementById('newProject');
+    addProject.addEventListener('click', newProject);
+
+    const reset = document.getElementById('resetProjects');
+    reset.addEventListener('click', resetProjects);
+
 }
 
 
@@ -762,6 +794,13 @@ function generateToDo() {
         window.localStorage.setItem(currentObject.title, JSON.stringify(currentObject));
 
         document.getElementById('todoForm').remove();
+
+        const addProject = document.getElementById('newProject');
+        addProject.addEventListener('click', newProject);
+
+        const reset = document.getElementById('resetProjects');
+        reset.addEventListener('click', resetProjects);
+
     }
 }
 
@@ -871,6 +910,11 @@ function changeTodo() {
         deleteToDoButton.addEventListener('click', deleteToDo);
         todoButtonDiv.appendChild(deleteToDoButton);
 
+        const addProject = document.getElementById('newProject');
+        addProject.addEventListener('click', newProject);
+
+        const reset = document.getElementById('resetProjects');
+        reset.addEventListener('click', resetProjects);
 
     }
 }
@@ -921,6 +965,12 @@ function confirmToDoChange() {
         window.localStorage.setItem(currentObject.title, JSON.stringify(currentObject));
         toDoStatus.textContent = currentObject.todo[index].status;
         document.getElementById('editTodoForm').remove();
+
+        const addProject = document.getElementById('newProject');
+        addProject.addEventListener('click', newProject);
+
+        const reset = document.getElementById('resetProjects');
+        reset.addEventListener('click', resetProjects);
     }
 }
 
@@ -944,4 +994,9 @@ function deleteToDo() {
 
     window.localStorage.setItem(currentObject.title, JSON.stringify(currentObject));
 
+    const addProject = document.getElementById('newProject');
+    addProject.addEventListener('click', newProject);
+
+    const reset = document.getElementById('resetProjects');
+    reset.addEventListener('click', resetProjects);
 }
