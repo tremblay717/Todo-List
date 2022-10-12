@@ -877,8 +877,6 @@ function changeTodo() {
 
 function confirmToDoChange() {
 
-    let currentToDolist = currentObject.todo;
-
     let itemIndex = (this.id).indexOf("_");
 
     let item = (this.id).slice(0, itemIndex);
