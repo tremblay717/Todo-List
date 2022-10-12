@@ -353,10 +353,10 @@ export default function editProject() {
                             toDoUL.id = 'toDoUL';
                             todoForm.appendChild(toDoUL);
 
-                            const toDoTitle = document.createElement('span');
-                            toDoTitle.id = 'toDoTitle';
-                            toDoTitle.textContent = 'Edit Todo: ' + currentToDolist[j].title;
-                            toDoUL.appendChild(toDoTitle);
+                            const editToDoTitle = document.createElement('span');
+                            editToDoTitle.id = 'editToDoTitle';
+                            editToDoTitle.textContent = 'Edit Todo: ' + currentToDolist[j].title;
+                            toDoUL.appendChild(editToDoTitle);
 
                             const toDoTitleLi = document.createElement('li');
                             toDoTitleLi.id = 'toDoTitleLi'
@@ -428,18 +428,20 @@ export default function editProject() {
                                 } else {
                                     if (toDoTitleInput.value != "") {
                                         currentToDolist[j].title = toDoTitleInput.value;
+                                        console.log(toDoTitleInput.value)
                                     }
                                     if (toDoDescriptionInput.value != "") {
                                         currentToDolist[j].description = toDoDescriptionInput.value;
+                                        toDoDescription.textContent = toDoDescriptionInput.value
                                     }
                                     if (toDoStatusSelect.value != "") {
                                         currentToDolist[j].status = toDoStatusSelect.value;
                                     }
 
                                     list[i].todo = currentToDolist;
-
                                     window.localStorage.setItem(list[i].title, JSON.stringify(list[i]));
                                     toDoStatus.textContent = currentToDolist[j].status;
+                                    toDoTitle.textContent = toDoTitleInput.value
                                     document.getElementById('editTodoForm').remove();
                                 }
                             }
