@@ -2,10 +2,11 @@ import './style.css';
 import basicHtml from './template.js';
 import projects from './projects.js';
 import Project from './Project.js';
+import Todo from './editTodo.js';
 
 basicHtml(); //Displaying the basic html template through a function call
 projects();
-resetProjects();
+// resetProjects();
 
 let items = { // Retrieving the local Storage everytime the page is loaded
     ...localStorage
@@ -24,6 +25,7 @@ const projectBoxes = document.querySelectorAll('.projectTitle');
 for (let i = 0; i < projectBoxes.length; i++) {
 
     projectBoxes[i].addEventListener('click', editProject, true);
+    projectBoxes[i].addEventListener('click', myTodo, false)
 }
 
 let currentObject = "";
@@ -222,7 +224,6 @@ function showDetails() {
     }
 }
 
-
 function editDetails() {
 
     const titleInput = document.getElementById('titleInputChange');
@@ -283,7 +284,6 @@ function editDetails() {
     }
 }
 
-
 function deleteProject() {
     const deleteTitle = currentObject.title;
 
@@ -293,7 +293,6 @@ function deleteProject() {
     document.getElementById(deleteTitle).remove();
 
 }
-
 
 const addProject = document.getElementById('newProject');
 addProject.addEventListener('click', newProject);
@@ -492,11 +491,12 @@ function resetProjects() {
 
     window.localStorage.clear();
 
+
     for (let i = 0; i < projectList.length; i++) {
 
         const myProject = projectList[i];
 
-        window.localStorage.setItem(projectList[i].title, JSON.stringify(myProject));
+        window.localStorage.setItem(myProject.title, JSON.stringify(myProject));
 
     }
 
@@ -509,11 +509,236 @@ function resetProjects() {
 
     projects();
 
+    items = { // Retrieving the local Storage everytime the page is loaded
+        ...localStorage
+    };
+
+    list = [];
+
+    for (let i = 0; i < localStorage.length; i++) {
+        const item = JSON.parse(items[Object.keys(items)[i]]); // We store each object in localStorage in an array;
+        item.constructor = Project;
+        list.push(item);
+    }
+
     const projectBoxes = document.querySelectorAll('.projectTitle');
 
     for (let i = 0; i < projectBoxes.length; i++) {
 
         projectBoxes[i].addEventListener('click', editProject, true);
+        projectBoxes[i].addEventListener('click', myTodo, false)
     }
 
+    currentObject = "";
+
+}
+
+
+function myTodo() {
+
+    const toDoDiv = document.createElement('div'); // Container that contains a form
+    toDoDiv.id = 'toDoDiv';
+    document.getElementById('fullProjectDiv').append(toDoDiv);
+
+    const todoTitle = document.createElement('span');
+    todoTitle.textContent = currentObject.title + ": Todo(s)";
+    toDoDiv.appendChild(todoTitle);
+
+    const newtoDo = document.createElement('span');
+    newtoDo.id = 'newtoDo';
+    newtoDo.textContent = "Add to do";
+    newtoDo.addEventListener('click', createTodo);
+
+    toDoDiv.appendChild(newtoDo);
+
+    const currentToDoDiv = document.createElement('div');
+    currentToDoDiv.id = 'currentToDoDiv';
+    toDoDiv.appendChild(currentToDoDiv);
+
+    const toDoBar = document.createElement('box');
+    toDoBar.id = 'toDoBar';
+    currentToDoDiv.appendChild(toDoBar);
+
+    const barTitle = document.createElement('span');
+    barTitle.id = 'barTitle';
+    barTitle.textContent = "Title";
+    toDoBar.appendChild(barTitle);
+
+    const barDescription = document.createElement('span');
+    barDescription.id = 'barDescription';
+    barDescription.textContent = "Description"
+    toDoBar.appendChild(barDescription);
+
+    const barStatus = document.createElement('span');
+    barStatus.id = 'barStatus';
+    barStatus.textContent = "Status"
+    toDoBar.appendChild(barStatus);
+
+    let currentToDolist = currentObject.todo;
+
+    if (currentToDolist.length > 0) {
+
+        for (let j = 0; j < currentToDolist.length; j++) {
+
+            const toDoBox = document.createElement('box');
+            toDoBox.className = 'toDoBox';
+            toDoBox.id = currentToDolist[j].title + "_Box";
+            currentToDoDiv.appendChild(toDoBox);
+
+            const toDoTitle = document.createElement('span');
+            toDoTitle.id = 'toDoTitle';
+            toDoTitle.textContent = currentToDolist[j].title
+            toDoBox.appendChild(toDoTitle);
+
+            const toDoDescription = document.createElement('p');
+            toDoDescription.id = 'toDoDescription';
+            toDoDescription.textContent = currentToDolist[j].description
+            toDoBox.appendChild(toDoDescription);
+
+            const toDoStatus = document.createElement('span');
+            toDoStatus.id = 'toDoStatus';
+            toDoStatus.textContent = currentToDolist[j].status
+            toDoBox.appendChild(toDoStatus);
+
+            const toDoEdit = document.createElement('p');
+            toDoEdit.id = 'toDoEdit';
+            toDoEdit.textContent = "Edit";
+            toDoBox.appendChild(toDoEdit);
+
+        }
+    }
+}
+
+
+
+function createTodo() {
+
+    const todoForm = document.createElement('div');
+    todoForm.id = 'todoForm';
+    document.getElementById('fullProjectDiv').appendChild(todoForm);
+
+    const toDoUL = document.createElement('ul');
+    toDoUL.id = 'toDoUL';
+    todoForm.appendChild(toDoUL);
+
+    const toDoTitle = document.createElement('span');
+    toDoTitle.id = 'toDoTitle';
+    toDoTitle.textContent = 'New Todo';
+    toDoUL.appendChild(toDoTitle);
+
+    const toDoTitleLi = document.createElement('li');
+    toDoTitleLi.id = 'toDoTitleLi'
+
+    const toDoTitleLabel = document.createElement('label');
+    toDoTitleLabel.textContent = "Todo Title:";
+
+    const toDoTitleInput = document.createElement('input');
+    toDoTitleInput.id = 'toDoTitleInput';
+
+    toDoTitleLi.appendChild(toDoTitleLabel);
+    toDoTitleLi.appendChild(toDoTitleInput);
+    toDoUL.appendChild(toDoTitleLi);
+
+    const toDoDescriptionLi = document.createElement('li');
+    toDoDescriptionLi.id = 'toDoDescriptionLi'
+
+    const toDoDescriptionLabel = document.createElement('label');
+    toDoDescriptionLabel.textContent = "Todo Description:";
+
+    const toDoDescriptionInput = document.createElement('input');
+    toDoDescriptionInput.id = 'toDoDescriptionInput';
+
+    toDoDescriptionLi.appendChild(toDoDescriptionLabel);
+    toDoDescriptionLi.appendChild(toDoDescriptionInput);
+    toDoUL.appendChild(toDoDescriptionLi);
+
+    const toDoStatusLi = document.createElement('li');
+    toDoStatusLi.id = 'toDoStatusLi';
+
+    const toDoStatusLabel = document.createElement('label');
+    toDoStatusLabel.textContent = "Todo Status:";
+
+    const toDoStatusSelect = document.createElement('select');
+    toDoStatusSelect.id = 'toDoStatusSelect';
+    toDoStatusSelect.style.width = '130px';
+
+    const toDoStatusNot = document.createElement('option');
+    toDoStatusNot.value = "Not Started";
+    toDoStatusNot.textContent = 'Not Started'
+    toDoStatusSelect.appendChild(toDoStatusNot);
+
+    const toDoStatusProgress = document.createElement('option');
+    toDoStatusProgress.value = "In Progress";
+    toDoStatusProgress.textContent = "In Progress";
+    toDoStatusSelect.appendChild(toDoStatusProgress);
+
+    const toDoStatusDone = document.createElement('option');
+    toDoStatusDone.value = "Done";
+    toDoStatusDone.textContent = "Done";
+    toDoStatusSelect.appendChild(toDoStatusDone);
+
+    toDoStatusLi.appendChild(toDoStatusLabel);
+    toDoStatusLi.appendChild(toDoStatusSelect);
+    toDoUL.appendChild(toDoStatusLi);
+
+    const toDoButton = document.createElement('span');
+    toDoButton.id = 'toDoButton';
+    toDoButton.textContent = "Confirm Todo";
+    toDoButton.addEventListener('click', generateToDo);
+    toDoUL.appendChild(toDoButton)
+
+}
+
+
+function generateToDo() {
+
+
+    const toDoTitleInput = document.getElementById('toDoTitleInput');
+    const toDoDescriptionInput = document.getElementById('toDoDescriptionInput');
+    const toDoStatusSelect = document.getElementById('toDoStatusSelect');
+
+
+    if (toDoTitleInput.value == "" || toDoDescriptionInput.value == "" || toDoStatusSelect.value == "") {
+        return;
+    } else {
+
+        const todoList = currentObject.todo
+
+        const newTodoObject = new Todo(toDoTitleInput.value, toDoDescriptionInput.value, toDoStatusSelect.value)
+
+        todoList.push(newTodoObject);
+
+        currentObject.todo = todoList;
+
+        const toDoBox = document.createElement('box');
+        toDoBox.className = 'toDoBox';
+        toDoBox.id = toDoTitleInput.value + "_Box";
+        document.getElementById('currentToDoDiv').appendChild(toDoBox);
+
+        const toDoTitle = document.createElement('span');
+        toDoTitle.id = 'toDoTitle';
+        toDoTitle.textContent = toDoTitleInput.value
+        toDoBox.appendChild(toDoTitle);
+
+        const toDoDescription = document.createElement('p');
+        toDoDescription.id = 'toDoDescription';
+        toDoDescription.textContent = toDoDescriptionInput.value;
+        toDoBox.appendChild(toDoDescription);
+
+        const toDoStatus = document.createElement('span');
+        toDoStatus.id = 'toDoStatus';
+        toDoStatus.textContent = toDoStatusSelect.value;
+        toDoBox.appendChild(toDoStatus);
+
+        const toDoEdit = document.createElement('p');
+        toDoEdit.className = 'toDoEdit'
+        toDoEdit.id = 'toDoEdit';
+        toDoEdit.textContent = "Edit";
+        toDoBox.appendChild(toDoEdit);
+
+        window.localStorage.setItem(currentObject.title, JSON.stringify(currentObject));
+
+        document.getElementById('todoForm').remove();
+
+    }
 }
