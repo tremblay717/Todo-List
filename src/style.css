@@ -440,6 +440,11 @@ input {
     width: 15vw;
 }
 
+label{
+    width: 100%;
+}
+
+
 input,
 select,
 option {

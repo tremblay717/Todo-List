@@ -2,14 +2,9 @@ import './style.css';
 import basicHtml from './template.js';
 import projects from './projects.js';
 import Project from './Project.js';
-// import editProject from './editProject.js';
-// import newProject from './newProject.js';
-import resetProjects from './resetProjects.js'
-// import editProject from './editProject';
 
 basicHtml(); //Displaying the basic html template through a function call
 projects();
-// editProject();
 resetProjects();
 
 let items = { // Retrieving the local Storage everytime the page is loaded
@@ -28,12 +23,10 @@ const projectBoxes = document.querySelectorAll('.projectTitle');
 
 for (let i = 0; i < projectBoxes.length; i++) {
 
-    projectBoxes[i].addEventListener('click', editProject);
+    projectBoxes[i].addEventListener('click', editProject, true);
 }
 
 let currentObject = "";
-
-
 
 function editProject() {
 
@@ -67,6 +60,7 @@ function editProject() {
     showDetail.textContent = "Show Project details";
     projectDisplay.appendChild(showDetail);
     showDetail.addEventListener('click', showDetails);
+
 }
 
 function showDetails() {
@@ -219,16 +213,11 @@ function showDetails() {
         editButton.textContent = 'Confirm Change(s)';
         buttonDiv.appendChild(editButton);
 
-        const cancelButton = document.createElement('div');
-        cancelButton.className = 'cancelButton';
-        cancelButton.id = 'cancelButton';
-        cancelButton.textContent = 'Cancel Change(s)';
-        buttonDiv.appendChild(cancelButton);
-
         const deleteButton = document.createElement('div');
         deleteButton.className = 'deleteButton';
         deleteButton.id = 'deleteButton';
         deleteButton.textContent = 'Delete Project';
+        deleteButton.addEventListener('click', deleteProject);
         buttonDiv.appendChild(deleteButton);
     }
 }
@@ -272,7 +261,7 @@ function editDetails() {
         }
 
         window.localStorage.setItem(currentObject.title, JSON.stringify(currentObject));
-        
+
         projectTitle.textContent = currentObject.title;
         titleObject.id = currentObject.title;
         titleInput.value = "";
@@ -293,6 +282,18 @@ function editDetails() {
         statusSelect.value = "";
     }
 }
+
+
+function deleteProject() {
+    const deleteTitle = currentObject.title;
+
+    window.localStorage.removeItem(deleteTitle);
+    document.getElementById('todoSection').removeChild(document.getElementById('fullProjectDiv'));
+
+    document.getElementById(deleteTitle).remove();
+
+}
+
 
 const addProject = document.getElementById('newProject');
 addProject.addEventListener('click', newProject);
@@ -443,11 +444,6 @@ function newProject() {
         cancelButton.id = 'cancelButton';
         cancelButton.textContent = 'Cancel';
         buttonDiv.appendChild(cancelButton);
-
-        cancelButton.onclick = function () { // Function to cancel changes
-            newProjectDiv.remove(); // Deleting form
-
-        }
     }
 }
 
@@ -474,4 +470,50 @@ function confirmButtonNew() {
         document.getElementById('newProjectDiv').remove();
         projectTitle.addEventListener('click', editProject);
     }
+}
+
+const reset = document.getElementById('resetProjects');
+reset.addEventListener('click', resetProjects);
+
+function resetProjects() {
+
+
+    //Creating a few random projects to display it on our screen
+    const home = new Project('Home', 'Renovating my Home', '2023-12-31', 'Low', 'Not Started', []);
+    const school = new Project('School', 'Finishing my degree', '2023-12-31', 'Low', 'Not Started', []);
+    const groceries = new Project('Groceries', 'Buy my groceries', '2023-01-01', 'High', 'Not Started', []);
+    const car = new Project('New Car', 'Buy a new car', '2023-12-31', 'Medium', 'Not Started', []);
+    const running = new Project('Half-marathon', 'Running a half-marathon', '2023-09-30', 'High', 'Not Started', []);
+    const everest = new Project('Climbing Everest', 'Climbing Mount Everest', '2025-06-30', 'Medium', 'Not Started', []);
+    const job = new Project('New Job', 'Change for a better job', '2022-12-31', 'Low', 'Not Started', []);
+    const coding = new Project('Coding', 'Learn to code', '2023-10-31', 'Medium', 'Not Started', []);
+
+    let projectList = [home, school, groceries, car, running, everest, job, coding];
+
+    window.localStorage.clear();
+
+    for (let i = 0; i < projectList.length; i++) {
+
+        const myProject = projectList[i];
+
+        window.localStorage.setItem(projectList[i].title, JSON.stringify(myProject));
+
+    }
+
+    document.getElementById('projectDiv').remove(); // Removing elements that need to be updated;
+    document.getElementById('todoSection').remove(); // Removing elements that need to be updated;
+
+    if (document.getElementById('fullProjectDiv') != null) {
+        document.getElementById('fullProjectDiv').remove();
+    }
+
+    projects();
+
+    const projectBoxes = document.querySelectorAll('.projectTitle');
+
+    for (let i = 0; i < projectBoxes.length; i++) {
+
+        projectBoxes[i].addEventListener('click', editProject, true);
+    }
+
 }
