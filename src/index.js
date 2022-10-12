@@ -329,6 +329,10 @@ function newProject() {
         return;
     }
 
+    if (document.getElementById('fullProjectDiv') != null) {
+        document.getElementById('fullProjectDiv').remove();
+    }
+
     const newProjectDiv = document.createElement('div'); // Container that contains a form
     newProjectDiv.id = 'newProjectDiv';
     document.getElementById('todoSection').appendChild(newProjectDiv);
