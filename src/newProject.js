@@ -20,7 +20,7 @@ export default function newProject() {
 
             const newProjectDiv = document.createElement('div'); // Container that contains a form
             newProjectDiv.id = 'newProjectDiv';
-            document.getElementById('mainSection').appendChild(newProjectDiv);
+            document.getElementById('todoSection').appendChild(newProjectDiv);
 
             const newForm = document.createElement('form');
             newForm.id = 'newForm';
@@ -140,6 +140,7 @@ export default function newProject() {
             confirmButton.className = 'editButton';
 
             confirmButton.textContent = 'Confirm Project';
+            confirmButton.id = confirmButton;
             buttonDiv.appendChild(confirmButton);
 
             confirmButton.onclick = function () {
@@ -150,14 +151,28 @@ export default function newProject() {
                     const newObject = new Project(titleInput.value, descriptionInput.value, dateInput.value, prioritySelect.value, statusSelect.value, []);
                     window.localStorage.setItem(newObject.title, JSON.stringify(newObject));
 
-                    newProjectDiv.remove(); 
-                    document.getElementById('projectDiv').remove(); 
-                    document.getElementById('todoSection').remove();
+                    let items = { // Retrieving the local Storage everytime the page is loaded
+                        ...localStorage
+                    };
+                    
+                    let list = [];
+                    
+                    for (let i = 0; i < localStorage.length; i++) {
+                        const item = JSON.parse(items[Object.keys(items)[i]]); // We store each object in localStorage in an array;
+                        item.constructor = Project;
+                        list.push(item);
+                    }
 
-                    projects(); 
-                    newProject();
-                    editProject(); 
-                    resetProjects();
+                    const projectTitle = document.createElement('span');
+                    projectTitle.className = 'projectTitle';
+                    projectTitle.id = newObject.title
+                    projectTitle.textContent = newObject.title;
+                    list.push(newObject);
+                    document.getElementById('projectDiv').appendChild(projectTitle);
+                    
+
+
+                    newProjectDiv.remove();
                 }
             }
 
@@ -169,9 +184,7 @@ export default function newProject() {
 
             cancelButton.onclick = function () { // Function to cancel changes
                 newProjectDiv.remove(); // Deleting form
-                newProject();
-                editProject(); // Calling editProject function - so we may reuse it for further editing.
-                resetProjects();
+
             }
         }
     }

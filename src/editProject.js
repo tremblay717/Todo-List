@@ -22,6 +22,8 @@ export default function editProject() {
 
         projectBoxes[i].onclick = function () {
 
+            
+
             if (document.getElementById('fullProjectDiv') != null || document.getElementById('newProjectDiv')) {
                 document.getElementById('fullProjectDiv').remove();
             }
@@ -223,9 +225,9 @@ export default function editProject() {
                             // const newprojectList = list.filter(Project => Project.title != list[i].title);
 
                             window.localStorage.setItem(list[i].title, JSON.stringify(list[i]));
-                            
+
                             descriptionInput.placeholder = list[i].description;
-                            
+
 
 
 
@@ -311,7 +313,8 @@ export default function editProject() {
                 for (let j = 0; j < currentToDolist.length; j++) {
 
                     const toDoBox = document.createElement('box');
-                    toDoBox.id = 'toDoBox';
+                    toDoBox.className ='toDoBox';
+                    toDoBox.id = currentToDolist[j].title + "_Box";
                     currentToDoDiv.appendChild(toDoBox);
 
                     const toDoTitle = document.createElement('span');
@@ -450,6 +453,24 @@ export default function editProject() {
                             deleteToDoButton.id = 'deleteToDoButton';
                             deleteToDoButton.textContent = "Delete Todo";
                             todoButtonDiv.appendChild(deleteToDoButton);
+
+
+                            deleteToDoButton.onclick = function(){
+
+                                document.getElementById(currentToDolist[j].title + "_Box").remove()
+
+                                document.getElementById('editTodoForm').remove()
+
+
+
+                            }
+
+
+
+
+
+
+
                         }
                     }
                 }
@@ -544,18 +565,43 @@ export default function editProject() {
 
                             todoList.push(newTodoObject);
 
+                            const toDoBox = document.createElement('box');
+                            toDoBox.className ='toDoBox';
+                            toDoBox.id = toDoTitleInput.value + "_Box";
+                            currentToDoDiv.appendChild(toDoBox);
+        
+                            const toDoTitle = document.createElement('span');
+                            toDoTitle.id = 'toDoTitle';
+                            toDoTitle.textContent = toDoTitleInput.value
+                            toDoBox.appendChild(toDoTitle);
+        
+                            const toDoDescription = document.createElement('p');
+                            toDoDescription.id = 'toDoDescription';
+                            toDoDescription.textContent = toDoDescriptionInput.value;
+                            toDoBox.appendChild(toDoDescription);
+        
+                            const toDoStatus = document.createElement('span');
+                            toDoStatus.id = 'toDoStatus';
+                            toDoStatus.textContent = toDoStatusSelect.value;
+                            toDoBox.appendChild(toDoStatus);
+        
+                            const toDoEdit = document.createElement('p');
+                            toDoEdit.className = 'toDoEdit'
+                            toDoEdit.id = 'toDoEdit';
+                            toDoEdit.textContent = "Edit";
+                            toDoBox.appendChild(toDoEdit);
+
+
+
                             window.localStorage.setItem(list[i].title, JSON.stringify(list[i]));
 
                             editingDiv.remove();
 
-                            document.getElementById('projectDiv').remove();
-                            document.getElementById('todoSection').remove();
-                            document.getElementById('fullProjectDiv').remove();
+                            // document.getElementById('projectDiv').remove();
+                            // document.getElementById('todoSection').remove();
+                            // document.getElementById('fullProjectDiv').remove();
 
-                            projects();
-                            newProject();
-                            editProject();
-                            resetProjects();
+
                         }
                     }
                 }

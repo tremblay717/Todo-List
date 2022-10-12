@@ -37,9 +37,9 @@ export default function resetProjects() {
         }
 
         projects();
-        newProject();  
-        editProject();
-        resetProjects();
+        // newProject();  
+        // // editProject();
+        // resetProjects();
 
     }
 }

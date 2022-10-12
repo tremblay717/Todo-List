@@ -1,5 +1,5 @@
 export default function projects() {
-    
+
     const mainSection = document.getElementById('mainSection');
 
     //1st part is a left bar
@@ -15,7 +15,7 @@ export default function projects() {
     newProject.className = 'newProject';
     newProject.id = 'newProject';
     projectDiv.appendChild(newProject);
-    
+
     //Span tag for my project projectList
     const myProjects = document.createElement('span');
     myProjects.className = 'myProjects';
@@ -33,8 +33,9 @@ export default function projects() {
         ...localStorage
     };
 
+    console.log(items)
     for (let i = 0; i < localStorage.length; i++) {
-    
+
         const item = JSON.parse(items[Object.keys(items)[i]]); // We store each object in localStorage in an array
         list.push(item);
     }
@@ -43,6 +44,7 @@ export default function projects() {
 
         const projectTitle = document.createElement('span');
         projectTitle.className = 'projectTitle';
+        projectTitle.id = list[i].title
         projectTitle.textContent = list[i].title;
         projectDiv.appendChild(projectTitle);
     }

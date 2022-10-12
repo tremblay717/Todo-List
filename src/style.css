@@ -483,7 +483,7 @@ option {
     text-align: center;
 }
 
-#toDoBox {
+.toDoBox {
     display: grid;
     grid-template: auto / 17.5% 55% 17.5% 10%;
     font-size: 1.05vw;
