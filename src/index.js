@@ -24,7 +24,7 @@ const projectBoxes = document.querySelectorAll('.projectTitle');
 for (let i = 0; i < projectBoxes.length; i++) {
 
     projectBoxes[i].addEventListener('click', editProject, true);
-    projectBoxes[i].addEventListener('click', myTodo, false)
+    projectBoxes[i].addEventListener('click', myTodo, false);
 }
 
 let currentObject = "";
@@ -35,8 +35,11 @@ function editProject() {
 
     currentObject = myObject;
 
-    if (document.getElementById('fullProjectDiv') != null || document.getElementById('newProjectDiv')) {
+    if (document.getElementById('fullProjectDiv') != null) {
         document.getElementById('fullProjectDiv').remove();
+
+    } else if (document.getElementById('newProjectDiv') != null) {
+        document.getElementById('newProjectDiv').remove();
     }
 
     const fullProjectDiv = document.createElement('div');
@@ -48,8 +51,8 @@ function editProject() {
     fullProjectDiv.appendChild(editingDiv);
 
     const projectDisplay = document.createElement('div');
-    projectDisplay.id = 'projectDisplay'
-    editingDiv.appendChild(projectDisplay)
+    projectDisplay.id = 'projectDisplay';
+    editingDiv.appendChild(projectDisplay);
 
     const projectTitle = document.createElement('span');
     projectTitle.id = 'projectTitle';
@@ -61,7 +64,6 @@ function editProject() {
     showDetail.textContent = "Show Project details";
     projectDisplay.appendChild(showDetail);
     showDetail.addEventListener('click', showDetails);
-
 }
 
 function showDetails() {
@@ -246,6 +248,7 @@ function editDetails() {
         if (titleInput.value != "") {
             document.getElementById(currentObject.title).textContent = titleInput.value;
             currentObject.title = titleInput.value;
+            document.getElementById('myToDoTItle').textContent = titleInput.value + ":Todo(s)";
         }
         if (descriptionInput.value != "") {
             currentObject.description = descriptionInput.value;
@@ -299,15 +302,25 @@ addProject.addEventListener('click', newProject);
 function newProject() {
 
 
+    if(document.getElementById('fullProjectDiv') != null){
+
+        document.getElementById('fullProjectDiv').remove();
+    }
+
     if (document.getElementById('newProjectDiv') != null || document.getElementById('editingDiv') != null) {
         return;
 
+
+    
+
     } else {
+
 
         if (document.getElementById('editingDiv') != null) {
             document.getElementById('editingDiv').remove();
         }
 
+        
         const newProjectDiv = document.createElement('div'); // Container that contains a form
         newProjectDiv.id = 'newProjectDiv';
         document.getElementById('todoSection').appendChild(newProjectDiv);
@@ -321,6 +334,7 @@ function newProject() {
         newForm.appendChild(projectTitle);
 
         const formUL = document.createElement('ul');
+        formUL.id = 'newProjectUl';
         newForm.appendChild(formUL);
 
         const titleLi = document.createElement('li');
@@ -446,14 +460,13 @@ function newProject() {
 }
 
 function confirmButtonNew() {
-
     const titleInput = document.getElementById('titleInput');
     const descriptionInput = document.getElementById('descriptionInput');
     const dateInput = document.getElementById('dateInput');
     const prioritySelect = document.getElementById('prioritySelect');
     const statusSelect = document.getElementById('statusSelect');
 
-    if (titleInput.value == "" && descriptionInput.value == "" && dateInput.value == "" && prioritySelect.value == "" && statusSelect.value == "") {
+    if (titleInput.value == "" || descriptionInput.value == "" || dateInput.value == "" || prioritySelect.value == "" || statusSelect.value == "") {
         return;
     } else {
         const newObject = new Project(titleInput.value, descriptionInput.value, dateInput.value, prioritySelect.value, statusSelect.value, []);
@@ -466,9 +479,8 @@ function confirmButtonNew() {
         list.push(newObject);
         document.getElementById('projectDiv').appendChild(projectTitle);
         document.getElementById('newProjectDiv').remove();
-        projectTitle.addEventListener('click', editProject,true);
+        projectTitle.addEventListener('click', editProject, true);
         projectTitle.addEventListener('click', myTodo);
-
     }
 }
 
@@ -527,7 +539,7 @@ function resetProjects() {
     for (let i = 0; i < projectBoxes.length; i++) {
 
         projectBoxes[i].addEventListener('click', editProject, true);
-        projectBoxes[i].addEventListener('click', myTodo, false)
+        projectBoxes[i].addEventListener('click', myTodo, false);
     }
 
     currentObject = "";
@@ -542,6 +554,7 @@ function myTodo() {
     document.getElementById('fullProjectDiv').append(toDoDiv);
 
     const todoTitle = document.createElement('span');
+    todoTitle.id = 'myToDoTItle';
     todoTitle.textContent = currentObject.title + ": Todo(s)";
     toDoDiv.appendChild(todoTitle);
 
@@ -567,7 +580,7 @@ function myTodo() {
 
     const barDescription = document.createElement('span');
     barDescription.id = 'barDescription';
-    barDescription.textContent = "Description"
+    barDescription.textContent = "Description";
     toDoBar.appendChild(barDescription);
 
     const barStatus = document.createElement('span');
@@ -593,12 +606,12 @@ function myTodo() {
 
             const toDoDescription = document.createElement('p');
             toDoDescription.id = 'toDoDescription';
-            toDoDescription.textContent = currentToDolist[j].description
+            toDoDescription.textContent = currentToDolist[j].description;
             toDoBox.appendChild(toDoDescription);
 
             const toDoStatus = document.createElement('span');
             toDoStatus.id = 'toDoStatus';
-            toDoStatus.textContent = currentToDolist[j].status
+            toDoStatus.textContent = currentToDolist[j].status;
             toDoBox.appendChild(toDoStatus);
 
             const toDoEdit = document.createElement('p');
@@ -611,8 +624,6 @@ function myTodo() {
         }
     }
 }
-
-
 
 function createTodo() {
 
@@ -630,7 +641,7 @@ function createTodo() {
     toDoUL.appendChild(toDoTitle);
 
     const toDoTitleLi = document.createElement('li');
-    toDoTitleLi.id = 'toDoTitleLi'
+    toDoTitleLi.id = 'toDoTitleLi';
 
     const toDoTitleLabel = document.createElement('label');
     toDoTitleLabel.textContent = "Todo Title:";
@@ -688,7 +699,7 @@ function createTodo() {
     toDoButton.id = 'toDoButton';
     toDoButton.textContent = "Confirm Todo";
     toDoButton.addEventListener('click', generateToDo);
-    toDoUL.appendChild(toDoButton)
+    toDoUL.appendChild(toDoButton);
 
 }
 
@@ -704,9 +715,9 @@ function generateToDo() {
         return;
     } else {
 
-        const todoList = currentObject.todo
+        const todoList = currentObject.todo;
 
-        const newTodoObject = new Todo(toDoTitleInput.value, toDoDescriptionInput.value, toDoStatusSelect.value)
+        const newTodoObject = new Todo(toDoTitleInput.value, toDoDescriptionInput.value, toDoStatusSelect.value);
 
         todoList.push(newTodoObject);
 
@@ -777,7 +788,7 @@ function changeTodo() {
         toDoUL.appendChild(editToDoTitle);
 
         const toDoTitleLi = document.createElement('li');
-        toDoTitleLi.id = 'toDoTitleLi'
+        toDoTitleLi.id = 'toDoTitleLi';
 
         const toDoTitleLabel = document.createElement('label');
         toDoTitleLabel.textContent = "Todo Title:";
@@ -851,7 +862,7 @@ function changeTodo() {
         deleteToDoButton.id = currentTodo.title + "_Btn";
         deleteToDoButton.className = 'deleteToDoButton'
         deleteToDoButton.textContent = "Delete Todo";
-        deleteToDoButton.addEventListener('click',deleteToDo);
+        deleteToDoButton.addEventListener('click', deleteToDo);
         todoButtonDiv.appendChild(deleteToDoButton);
 
 
@@ -867,7 +878,7 @@ function confirmToDoChange() {
     let item = (this.id).slice(0, itemIndex);
 
     const index = currentObject.todo.findIndex(object => {
-        return object.title == item
+        return object.title == item;
     })
 
     const toDoTitleInput = document.getElementById('toDoTitleInput');
@@ -884,7 +895,7 @@ function confirmToDoChange() {
         if (toDoTitleInput.value != "") {
 
             currentObject.todo[index].title = toDoTitleInput.value;
-            toDoTitle.textContent = toDoTitleInput.value
+            toDoTitle.textContent = toDoTitleInput.value;
             this.id = toDoTitleInput.value + "_Btn";
 
             const box = document.getElementById(item + "_Box");
@@ -896,7 +907,7 @@ function confirmToDoChange() {
 
         if (toDoDescriptionInput.value != "") {
             currentObject.todo[index].description = toDoDescriptionInput.value;
-            toDoDescription.textContent = toDoDescriptionInput.value
+            toDoDescription.textContent = toDoDescriptionInput.value;
         }
 
         if (toDoStatusSelect.value != "") {
@@ -921,13 +932,11 @@ function deleteToDo() {
         return object.title == item
     })
 
-    document.getElementById(currentObject.todo[index].title + "_Box").remove()
-    
-    currentObject.todo = currentToDolist.filter(object => object.title != item )
+    document.getElementById(currentObject.todo[index].title + "_Box").remove();
 
-    console.log(currentObject.todo)
+    currentObject.todo = currentToDolist.filter(object => object.title != item);
 
-    document.getElementById('editTodoForm').remove()
+    document.getElementById('editTodoForm').remove();
 
     window.localStorage.setItem(currentObject.title, JSON.stringify(currentObject));
 

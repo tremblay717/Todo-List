@@ -5,5 +5,5 @@ export default function Project(title, description, dueDate, priority, status, t
         this.dueDate = dueDate;
         this.priority = priority;
         this.status = status;
-        this.todo = todo
+        this.todo = todo;
 }

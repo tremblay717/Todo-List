@@ -21,7 +21,7 @@ export default function basicHtml() {
     const userIcon = new Image();
     userIcon.id = 'userIcon';
     userIcon.src = UserIcon;
-    rightHeaderDiv.appendChild(userIcon)
+    rightHeaderDiv.appendChild(userIcon);
 
     const userName = document.createElement('span');
     userName.className = 'userName';
