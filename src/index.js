@@ -472,7 +472,6 @@ function confirmButtonNew() {
     } else {
         const newObject = new Project(titleInput.value, descriptionInput.value, dateInput.value, prioritySelect.value, statusSelect.value, []);
         window.localStorage.setItem(newObject.title, JSON.stringify(newObject));
-
         const projectTitle = document.createElement('span');
         projectTitle.className = 'projectTitle';
         projectTitle.id = newObject.title
@@ -632,6 +631,10 @@ function myTodo() {
 
 function createTodo() {
 
+    if (document.getElementById('todoForm') != null) {
+        return;
+    }
+
     const todoForm = document.createElement('div');
     todoForm.id = 'todoForm';
     document.getElementById('fullProjectDiv').appendChild(todoForm);
@@ -776,8 +779,6 @@ function changeTodo() {
         let currentToDolist = currentObject.todo;
 
         let currentTodo = currentToDolist.find(item => item.title == this.id)
-
-        console.log(currentTodo);
 
         const todoForm = document.createElement('div');
         todoForm.id = 'editTodoForm';
