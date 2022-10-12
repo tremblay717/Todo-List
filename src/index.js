@@ -302,7 +302,7 @@ addProject.addEventListener('click', newProject);
 function newProject() {
 
 
-    if(document.getElementById('fullProjectDiv') != null){
+    if (document.getElementById('fullProjectDiv') != null) {
 
         document.getElementById('fullProjectDiv').remove();
     }
@@ -311,7 +311,7 @@ function newProject() {
         return;
 
 
-    
+
 
     } else {
 
@@ -320,7 +320,7 @@ function newProject() {
             document.getElementById('editingDiv').remove();
         }
 
-        
+
         const newProjectDiv = document.createElement('div'); // Container that contains a form
         newProjectDiv.id = 'newProjectDiv';
         document.getElementById('todoSection').appendChild(newProjectDiv);
@@ -455,6 +455,7 @@ function newProject() {
         cancelButton.className = 'cancelButton';
         cancelButton.id = 'cancelButton';
         cancelButton.textContent = 'Cancel';
+        cancelButton.addEventListener('click', cancelProject)
         buttonDiv.appendChild(cancelButton);
     }
 }
@@ -482,6 +483,10 @@ function confirmButtonNew() {
         projectTitle.addEventListener('click', editProject, true);
         projectTitle.addEventListener('click', myTodo);
     }
+}
+
+function cancelProject() {
+    document.getElementById('newProjectDiv').remove();
 }
 
 const reset = document.getElementById('resetProjects');
