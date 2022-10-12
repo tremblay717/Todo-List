@@ -326,7 +326,7 @@ body {
 
 }
 
-#editToDoButton{
+.editToDoButton{
     display: flex;
     align-items: center;
     text-align: center;
@@ -344,7 +344,7 @@ body {
     cursor: pointer;
 }
 
-#deleteToDoButton{    display: flex;
+.deleteToDoButton{    display: flex;
     align-items: center;
     text-align: center;
     justify-content: center;
