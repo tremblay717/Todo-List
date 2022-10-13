@@ -474,7 +474,7 @@ option {
     font-size: 1.05vw;
 }
 
-#toDoTitle {
+.toDoTitle {
     display: flex;
     text-align: center;
     justify-content: center;
@@ -484,13 +484,13 @@ option {
     font-weight: 600;
 }
 
-#toDoDescription {
+.toDoDescription {
     grid-column-start: 2;
     grid-column-end: 3;
     text-justify: inter-word;
 }
 
-#toDoStatus {
+.toDoStatus {
     grid-column-start: 3;
     grid-column-end: 4;
     text-align: center;

@@ -3,6 +3,9 @@ import basicHtml from './template.js'
 import projects from './projects.js'
 import Project from './Project.js'
 import Todo from './editTodo.js'
+import {
+  v4 as uuidv4
+} from 'uuid'
 
 basicHtml() // Displaying the basic html template through a function call
 projects() // Populating the left Bar
@@ -10,6 +13,8 @@ projects() // Populating the left Bar
 let items = { // Retrieving the local Storage everytime the page is loaded
   ...localStorage
 }
+
+console.log(uuidv4())
 
 let list = []
 
@@ -29,7 +34,7 @@ for (let i = 0; i < projectBoxes.length; i++) {
 let currentObject = ''
 
 function editProject () {
-  const myObject = list.find(item => item.title === this.id)
+  const myObject = list.find(item => item.id === this.id)
 
   currentObject = myObject
 
@@ -297,9 +302,9 @@ function editDetails () {
 }
 
 function deleteProject () {
-  const deleteTitle = currentObject.title
+  const deleteTitle = currentObject.id
 
-  window.localStorage.removeItem(deleteTitle)
+  window.localStorage.removeItem(currentObject)
   document.getElementById('todoSection').removeChild(document.getElementById('fullProjectDiv'))
 
   document.getElementById(deleteTitle).remove()
@@ -475,13 +480,13 @@ function confirmButtonNew () {
   const statusSelect = document.getElementById('statusSelect')
 
   if (titleInput.value === '' || descriptionInput.value === '' || dateInput.value === '' || prioritySelect.value === '' || statusSelect.value === '') {
-  // nothing
+    // nothing
   } else {
     const newObject = new Project(titleInput.value, descriptionInput.value, dateInput.value, prioritySelect.value, statusSelect.value, [])
     window.localStorage.setItem(newObject.title, JSON.stringify(newObject))
     const projectTitle = document.createElement('span')
     projectTitle.className = 'projectTitle'
-    projectTitle.id = newObject.title
+    projectTitle.id = newObject.id
     projectTitle.textContent = newObject.title
     list.push(newObject)
     document.getElementById('projectDiv').appendChild(projectTitle)
@@ -596,26 +601,29 @@ function myTodo () {
     for (let j = 0; j < currentToDolist.length; j++) {
       const toDoBox = document.createElement('box')
       toDoBox.className = 'toDoBox'
-      toDoBox.id = currentToDolist[j].title + '_Box'
+      toDoBox.id = currentToDolist[j].id + '_Box'
       currentToDoDiv.appendChild(toDoBox)
 
       const toDoTitle = document.createElement('span')
-      toDoTitle.id = 'toDoTitle'
+      toDoTitle.className = 'toDoTitle'
+      toDoTitle.id = currentToDolist[j].id + '_toDoTitle'
       toDoTitle.textContent = currentToDolist[j].title
       toDoBox.appendChild(toDoTitle)
 
       const toDoDescription = document.createElement('p')
-      toDoDescription.id = 'toDoDescription'
+      toDoDescription.className = 'toDoDescription'
+      toDoDescription.id = currentToDolist[j].id + '_toDoDescription'
       toDoDescription.textContent = currentToDolist[j].description
       toDoBox.appendChild(toDoDescription)
 
       const toDoStatus = document.createElement('span')
-      toDoStatus.id = 'toDoStatus'
+      toDoStatus.className = 'toDoStatus'
+      toDoStatus.id = currentToDolist[j].id + '_toDoStatus'
       toDoStatus.textContent = currentToDolist[j].status
       toDoBox.appendChild(toDoStatus)
 
       const toDoEdit = document.createElement('p')
-      toDoEdit.id = currentToDolist[j].title
+      toDoEdit.id = currentToDolist[j].id
       toDoEdit.style.cursor = 'pointer'
       toDoEdit.textContent = 'Edit'
       toDoEdit.addEventListener('click', changeTodo)
@@ -728,27 +736,30 @@ function generateToDo () {
 
     const toDoBox = document.createElement('box')
     toDoBox.className = 'toDoBox'
-    toDoBox.id = toDoTitleInput.value + '_Box'
+    toDoBox.id = newTodoObject.id + '_Box'
     document.getElementById('currentToDoDiv').appendChild(toDoBox)
 
     const toDoTitle = document.createElement('span')
-    toDoTitle.id = 'toDoTitle'
+    toDoTitle.className = 'toDoTitle'
+    toDoTitle.id = newTodoObject.id + '_toDoTitle'
     toDoTitle.textContent = toDoTitleInput.value
     toDoBox.appendChild(toDoTitle)
 
     const toDoDescription = document.createElement('p')
     toDoDescription.id = 'toDoDescription'
-    toDoDescription.textContent = toDoDescriptionInput.value
+    toDoDescription.id = newTodoObject.id + '_toDoDescription'
+    toDoDescription.textContent = newTodoObject.description
     toDoBox.appendChild(toDoDescription)
 
     const toDoStatus = document.createElement('span')
-    toDoStatus.id = 'toDoStatus'
-    toDoStatus.textContent = toDoStatusSelect.value
+    toDoStatus.className = 'toDoStatus'
+    toDoStatus.id = newTodoObject + '_toDoStatus'
+    toDoStatus.textContent = newTodoObject.status
     toDoBox.appendChild(toDoStatus)
 
     const toDoEdit = document.createElement('p')
     toDoEdit.className = 'toDoEdit'
-    toDoEdit.id = newTodoObject.title
+    toDoEdit.id = newTodoObject.id
     toDoEdit.style.cursor = 'pointer'
     toDoEdit.textContent = 'Edit'
     toDoEdit.addEventListener('click', changeTodo)
@@ -772,11 +783,11 @@ function changeTodo () {
   }
 
   if (document.getElementById('editTodoForm') != null) {
-  // nothing
+    // nothing
   } else {
     const currentToDolist = currentObject.todo
 
-    const currentTodo = currentToDolist.find(item => item.title === this.id)
+    const currentTodo = currentToDolist.find(item => item.id === this.id)
 
     const todoForm = document.createElement('div')
     todoForm.id = 'editTodoForm'
@@ -855,14 +866,14 @@ function changeTodo () {
     toDoUL.appendChild(todoButtonDiv)
 
     const editToDoButton = document.createElement('span')
-    editToDoButton.id = currentTodo.title + '_Btn'
+    editToDoButton.id = currentTodo.id + '_Btn'
     editToDoButton.className = 'editToDoButton'
     editToDoButton.textContent = 'Confirm Change(s)'
     editToDoButton.addEventListener('click', confirmToDoChange)
     todoButtonDiv.appendChild(editToDoButton)
 
     const deleteToDoButton = document.createElement('span')
-    deleteToDoButton.id = currentTodo.title + '_Btn'
+    deleteToDoButton.id = currentTodo.id + '_Btn'
     deleteToDoButton.className = 'deleteToDoButton'
     deleteToDoButton.textContent = 'Delete Todo'
     deleteToDoButton.addEventListener('click', deleteToDo)
@@ -882,28 +893,25 @@ function confirmToDoChange () {
   const item = (this.id).slice(0, itemIndex)
 
   const index = currentObject.todo.findIndex(object => {
-    return object.title === item
+    return object.id === item
   })
+
+  console.log(item)
+  console.log(index)
 
   const toDoTitleInput = document.getElementById('toDoTitleInput')
   const toDoDescriptionInput = document.getElementById('toDoDescriptionInput')
   const toDoStatusSelect = document.getElementById('toDoStatusSelect')
-  const toDoTitle = document.getElementById('toDoTitle')
+  const toDoTitle = document.getElementById('toDoTitle') // Error Here
   const toDoDescription = document.getElementById('toDoDescription')
   const toDoStatus = document.getElementById('toDoStatus')
 
   if (toDoTitleInput.value === '' && toDoDescriptionInput.value === '' && toDoStatusSelect.value === '') {
-  // nothing
+    // nothing
   } else {
     if (toDoTitleInput.value !== '') {
       currentObject.todo[index].title = toDoTitleInput.value
       toDoTitle.textContent = toDoTitleInput.value
-      this.id = toDoTitleInput.value + '_Btn'
-
-      const box = document.getElementById(item + '_Box')
-      box.id = currentObject.todo[index].title + '_Box'
-      const edit = document.getElementById(item)
-      edit.id = currentObject.todo[index].title
     }
 
     if (toDoDescriptionInput.value !== '') {
