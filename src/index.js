@@ -929,22 +929,16 @@ function confirmToDoChange () {
 
 function deleteToDo () {
   const currentToDolist = currentObject.todo
-
   const itemIndex = (this.id).indexOf('_')
-
   const item = (this.id).slice(0, itemIndex)
-
   const index = currentObject.todo.findIndex(object => {
     return object.title === item
   })
 
   document.getElementById(currentObject.todo[index].title + '_Box').remove()
-
   currentObject.todo = currentToDolist.filter(object => object.title !== item)
-
-  document.getElementById('editTodoForm').remove()
-
   window.localStorage.setItem(currentObject.title, JSON.stringify(currentObject))
+  document.getElementById('editTodoForm').remove()
 
   const addProject = document.getElementById('newProject')
   addProject.addEventListener('click', newProject)
