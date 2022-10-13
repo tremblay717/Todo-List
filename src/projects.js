@@ -33,7 +33,7 @@ export default function projects () {
   for (let i = 0; i < list.length; i++) { // Iterating to display our objects
     const projectTitle = document.createElement('span')
     projectTitle.className = 'projectTitle'
-    projectTitle.id = list[i].id
+    projectTitle.id = list[i].id + '_Title'
     projectTitle.textContent = list[i].title
     projectDiv.appendChild(projectTitle)
   }

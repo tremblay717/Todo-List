@@ -3,9 +3,6 @@ import basicHtml from './template.js'
 import projects from './projects.js'
 import Project from './Project.js'
 import Todo from './editTodo.js'
-import {
-  v4 as uuidv4
-} from 'uuid'
 
 basicHtml() // Displaying the basic html template through a function call
 projects() // Populating the left Bar
@@ -13,8 +10,6 @@ projects() // Populating the left Bar
 let items = { // Retrieving the local Storage everytime the page is loaded
   ...localStorage
 }
-
-console.log(uuidv4())
 
 let list = []
 
@@ -34,9 +29,11 @@ for (let i = 0; i < projectBoxes.length; i++) {
 let currentObject = ''
 
 function editProject () {
-  const myObject = list.find(item => item.id === this.id)
+  const index = (this.id).indexOf('_')
 
-  currentObject = myObject
+  const id = (this.id).slice(0, index)
+
+  currentObject = list.find(item => item.id === id)
 
   if (document.getElementById('fullProjectDiv') != null) {
     document.getElementById('fullProjectDiv').remove()
@@ -248,20 +245,21 @@ function editDetails () {
   const statusSelect = document.getElementById('statusSelect')
 
   if (titleInput.value === '' && descriptionInput.value === '' && dateInput.value === '' && prioritySelect.value === '' && statusSelect.value === '') {
-    return
+    // Nothing
   } else {
-    const titleObject = document.getElementById(currentObject.title)
     const projectTitle = document.getElementById('projectTitle')
-    // const editObject = list[i].title // this variable stores the right object title before removing it from our list
     window.localStorage.removeItem(currentObject.title)
 
     if (titleInput.value !== '') {
-      document.getElementById(currentObject.title).textContent = titleInput.value
+      document.getElementById(currentObject.id + '_Title').textContent = titleInput.value
+      projectTitle.textContent = titleInput.value
+
       currentObject.title = titleInput.value
       document.getElementById('myToDoTItle').textContent = titleInput.value + ':Todo(s)'
     }
     if (descriptionInput.value !== '') {
       currentObject.description = descriptionInput.value
+      descriptionInput.value = ''
     }
     if (dateInput.value !== '') {
       currentObject.dueDate = dateInput.value
@@ -275,8 +273,6 @@ function editDetails () {
 
     window.localStorage.setItem(currentObject.title, JSON.stringify(currentObject))
 
-    projectTitle.textContent = currentObject.title
-    titleObject.id = currentObject.title
     titleInput.value = ''
     titleInput.placeholder = currentObject.title
 
@@ -302,12 +298,9 @@ function editDetails () {
 }
 
 function deleteProject () {
-  const deleteTitle = currentObject.id
-
-  window.localStorage.removeItem(currentObject)
   document.getElementById('todoSection').removeChild(document.getElementById('fullProjectDiv'))
-
-  document.getElementById(deleteTitle).remove()
+  document.getElementById(currentObject.id + '_Title').remove()
+  window.localStorage.removeItem(currentObject.title)
 
   const addProject = document.getElementById('newProject')
   addProject.addEventListener('click', newProject)
@@ -323,7 +316,6 @@ function newProject () {
   if (document.getElementById('newProjectDiv') != null) {
     return
   }
-
   if (document.getElementById('fullProjectDiv') != null) {
     document.getElementById('fullProjectDiv').remove()
   }
