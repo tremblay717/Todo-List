@@ -753,7 +753,7 @@ function generateToDo () {
 
     const toDoStatus = document.createElement('span')
     toDoStatus.className = 'toDoStatus'
-    toDoStatus.id = newTodoObject + '_toDoStatus'
+    toDoStatus.id = newTodoObject.id + '_toDoStatus'
     toDoStatus.textContent = newTodoObject.status
     toDoBox.appendChild(toDoStatus)
 
@@ -902,9 +902,9 @@ function confirmToDoChange () {
   const toDoTitleInput = document.getElementById('toDoTitleInput')
   const toDoDescriptionInput = document.getElementById('toDoDescriptionInput')
   const toDoStatusSelect = document.getElementById('toDoStatusSelect')
-  const toDoTitle = document.getElementById('toDoTitle') // Error Here
-  const toDoDescription = document.getElementById('toDoDescription')
-  const toDoStatus = document.getElementById('toDoStatus')
+  const toDoTitle = document.getElementById(currentObject.todo[index].id + '_toDoTitle')
+  const toDoDescription = document.getElementById(currentObject.todo[index].id + '_toDoDescription')
+  const toDoStatus = document.getElementById(currentObject.todo[index].id + '_toDoStatus')
 
   if (toDoTitleInput.value === '' && toDoDescriptionInput.value === '' && toDoStatusSelect.value === '') {
     // nothing
@@ -940,11 +940,11 @@ function deleteToDo () {
   const itemIndex = (this.id).indexOf('_')
   const item = (this.id).slice(0, itemIndex)
   const index = currentObject.todo.findIndex(object => {
-    return object.title === item
+    return object.id === item
   })
 
-  document.getElementById(currentObject.todo[index].title + '_Box').remove()
-  currentObject.todo = currentToDolist.filter(object => object.title !== item)
+  document.getElementById(currentObject.todo[index].id + '_Box').remove()
+  currentObject.todo = currentToDolist.filter(object => object.id !== item)
   window.localStorage.setItem(currentObject.title, JSON.stringify(currentObject))
   document.getElementById('editTodoForm').remove()
 
