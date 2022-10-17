@@ -1247,7 +1247,7 @@ function confirmButtonNew () {
     window.localStorage.setItem(newObject.title, JSON.stringify(newObject))
     const projectTitle = document.createElement('span')
     projectTitle.className = 'projectTitle'
-    projectTitle.id = newObject.id
+    projectTitle.id = newObject.id + "_Title"
     projectTitle.textContent = newObject.title
     list.push(newObject)
     document.getElementById('projectDiv').appendChild(projectTitle)
